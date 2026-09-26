@@ -105,7 +105,7 @@ addCommandHandler("icon", function(player, _, targetId, ...)
 
     if SetPlayerTag(target, tag) then
         local shown = GetPlayerTag(target) or "Yok"
-        outputChatBox("#55FF99[Stage] #FFFFFF" .. GetCharacterName(target) or getPlayerName(target) .. " etiketi: #55CCFF" .. shown, player,255,255,255,true)
+        outputChatBox("#55FF99[Stage] #FFFFFF" .. tostring(GetCharacterName(target) or getPlayerName(target)) .. " etiketi: #55CCFF" .. shown, player,255,255,255,true)
         if target ~= player then
             outputChatBox("#55CCFF[Stage] #FFFFFFEtiketin: #55CCFF" .. shown, target,255,255,255,true)
         end
