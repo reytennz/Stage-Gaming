@@ -43,4 +43,8 @@
     <export function="getPlayerInventory" type="server" />
     <export function="openInventory" type="server" />
     <export function="closeInventory" type="server" />
+    <export function="AddItem" type="server" />
+    <export function="RemoveItem" type="server" />
+    <export function="HasItem" type="server" />
+    <export function="GetItemCount" type="server" />
 </meta>
