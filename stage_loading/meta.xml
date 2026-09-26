@@ -69,6 +69,7 @@
     <export function="stageSetBank" type="server"/>
     <export function="stageAddBank" type="server"/>
     <export function="stageRemoveBank" type="server"/>
+    <export function="stageSetCharacterTag" type="server"/>
 
     <file src="assets/hud/speedo2/base-circle.png"/>
     <file src="assets/hud/speedo2/gas.png"/>
