@@ -24,7 +24,7 @@ end
 function SetPlayerTag(player, tag)
     if not isElement(player) or getElementType(player) ~= "player" then return false end
     tag = cleanTag(tag)
-    if not tag then return ClearPlayerTag(player) end
+    if not tag then tag = DEFAULT_TAG end
 
     setElementData(player, "stage:tag", tag, true)
 
@@ -42,7 +42,7 @@ end
 
 function ClearPlayerTag(player)
     if not isElement(player) then return false end
-    setElementData(player, "stage:tag", nil, true)
+    setElementData(player, "stage:tag", DEFAULT_TAG, true)
 
     local charId = getElementData(player, "stage:charId")
     if charId then
