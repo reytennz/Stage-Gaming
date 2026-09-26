@@ -41,6 +41,7 @@ local function initTables()
             height INT NOT NULL DEFAULT 175,
             skin INT NOT NULL DEFAULT 0,
             country VARCHAR(16) NOT NULL DEFAULT 'TR',
+            tag VARCHAR(32) NOT NULL DEFAULT 'Yeni Oyuncu',
             money INT NOT NULL DEFAULT 300000,
             kills INT NOT NULL DEFAULT 0,
             deaths INT NOT NULL DEFAULT 0,
@@ -55,6 +56,12 @@ local function initTables()
             FOREIGN KEY (account_id) REFERENCES accounts(id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     ]])
+    -- karakter etiketi: eski veritabanlari icin otomatik eklenir
+    local tq = dbPoll(dbQuery(db, "SHOW COLUMNS FROM characters LIKE 'tag'"), -1)
+    if not tq or #tq == 0 then
+        dbExec(db, "ALTER TABLE characters ADD COLUMN tag VARCHAR(32) NOT NULL DEFAULT 'Yeni Oyuncu'")
+        outputServerLog("[Stage] character tag kolonu eklendi.")
+    end
     -- money kolonu yoksa ekle (eski kurulumlar icin) - varsa sessizce gec
     local q = dbQuery(db, "SHOW COLUMNS FROM characters LIKE 'money'")
     local r = dbPoll(q, -1)
@@ -178,6 +185,7 @@ local function getPlayerCharsPacked(username)
                 height = row.height,
                 skin = row.skin,
                 country = row.country,
+                tag = row.tag or 'Yeni Oyuncu',
                 money = row.money or 0,
                 pos_x = row.pos_x,
                 pos_y = row.pos_y,
@@ -339,6 +347,13 @@ addEventHandler("stageSelectChar", root, function(slot)
     local char = r[1]
     setElementData(player, "stage:charId", char.id)
     setElementData(player, "stage:char", char.name .. " " .. char.surname, true)
+    setElementData(player, "stage:charName", char.name, true)
+    setElementData(player, "stage:charSurname", char.surname, true)
+    setElementData(player, "stage:charAge", tonumber(char.age) or 18, true)
+    setElementData(player, "stage:charHeight", tonumber(char.height) or 175, true)
+    setElementData(player, "stage:charSkin", tonumber(char.skin) or 0, true)
+    setElementData(player, "stage:charCountry", char.country or "TR", true)
+    setElementData(player, "stage:tag", char.tag or "Yeni Oyuncu", true)
     setElementData(player, "stage:charSlot", slot)
     setElementData(player, "playerid", char.id, true)
 
@@ -363,6 +378,7 @@ addEventHandler("stageSelectChar", root, function(slot)
     local charData = {
         id = char.id, slot = slot,
         name = char.name, surname = char.surname,
+        tag = char.tag or 'Yeni Oyuncu',
         age = char.age, height = char.height,
         skin = char.skin, country = char.country,
         money = money,
@@ -649,3 +665,20 @@ addCommandHandler("resetstats", function(player, _, targetName)
         outputChatBox("#FF7A00[Stage Gaming] #FFFFFFOyuncunun aktif karakteri yok.", player, 255, 255, 255, true)
     end
 end)
+
+-- stage_core karakter etiketi API
+function stageSetCharacterTag(player, tag)
+    if not isElement(player) or not db then return false end
+    local charId = getElementData(player, "stage:charId")
+    if not charId then return false end
+
+    tag = tostring(tag or ""):gsub("[%c\r\n]", " "):gsub("^%s+", ""):gsub("%s+$", "")
+    if tag == "" then tag = "Yeni Oyuncu" end
+    tag = tag:sub(1, 32)
+
+    local ok = dbExec(db, "UPDATE characters SET tag=? WHERE id=?", tag, charId)
+    if ok then
+        setElementData(player, "stage:tag", tag, true)
+    end
+    return ok
+end
