@@ -1,0 +1,9 @@
+<meta>
+    <info author="Stage Gaming" name="stage_websync" version="1.2.0" description="Stage Gaming MTA Web heartbeat sync" type="script" />
+    <min_mta_version server="1.5.4-9.11342" />
+    <aclrequest>
+        <right name="function.fetchRemote" access="true" />
+    </aclrequest>
+    <script src="config.lua" type="server" />
+    <script src="server.lua" type="server" />
+</meta>

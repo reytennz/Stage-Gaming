@@ -1,0 +1,52 @@
+<meta>
+    <info author="Stage" name="stage_admin" version="1.0.3" type="script"
+          description="Stage Gaming - Admin Panel / Moderation / Report / Anti-Cheat sistemi" />
+    <min_mta_version server="1.5.9" client="1.5.9" />
+
+    <include resource="stage_loading" />
+
+    <script src="shared/config.lua" type="shared" cache="false" />
+    <script src="shared/utils.lua" type="shared" cache="false" />
+
+    <script src="server/database.lua" type="server" />
+    <script src="server/permissions.lua" type="server" />
+    <script src="server/bridge.lua" type="server" />
+    <script src="server/logs.lua" type="server" />
+    <script src="server/control_center.lua" type="server" />
+    <script src="server/ratelimit.lua" type="server" />
+    <script src="server/actions.lua" type="server" />
+    <script src="server/bans.lua" type="server" />
+    <script src="server/warns.lua" type="server" />
+    <script src="server/reports.lua" type="server" />
+    <script src="server/events.lua" type="server" />
+    <script src="server/vehicles.lua" type="server" />
+    <script src="server/broadcast.lua" type="server" />
+    <script src="server/vehicle_cleanup.lua" type="server" />
+    <script src="server/anticheat.lua" type="server" />
+    <script src="server/network.lua" type="server" />
+    <script src="server/commands.lua" type="server" />
+    <script src="server/main.lua" type="server" />
+
+    <script src="client/dxui.lua" type="client" cache="false" />
+    <script src="client/notifications.lua" type="client" cache="false" />
+    <script src="client/movement.lua" type="client" cache="false" />
+    <script src="client/html_panel.lua" type="client" cache="false" />
+    <script src="client/report_panel.lua" type="client" cache="false" />
+    <script src="client/main.lua" type="client" cache="false" />
+
+    <!-- CEF: http://mta/local/html/panel.html -->
+    <file src="html/panel.html" />
+    <file src="panel.html" />
+
+    <export function="AdminHasPermission" type="server" />
+    <export function="AdminGetRank" type="server" />
+    <export function="AdminIsStaff" type="server" />
+    <export function="AdminTrackEconomy" type="server" />
+    <export function="AdminTrackItem" type="server" />
+    <export function="AdminTrackACDetection" type="server" />
+    <export function="AdminBanPlayer" type="server" />
+    <export function="AdminACGrantMovementExemption" type="server" />
+    <export function="AdminChatSend" type="server" />
+    <export function="AdminSendAnnounce" type="server" />
+    <export function="AdminBroadcastAnnounce" type="server" />
+</meta>

@@ -1,0 +1,11 @@
+stage_admin komutlari (/a /cv /dv /noon ...) icin:
+
+1) MTA sunucu konsolu:
+   aclrequest allow stage_chat all
+
+VEYA acl.xml icinde Admin grubuna ekle:
+   <object name="resource.stage_chat" />
+
+2) Restart stage_chat
+
+Yerel komutlar (/me /do /pm /msg /duyuru) ACL GEREKTIRMEZ.

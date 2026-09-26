@@ -1,0 +1,7 @@
+<meta>
+    <info author="Stage Gaming" name="Stage Vehicle Shop" version="1.0" type="script" />
+    <script src="config.lua" type="shared" cache="false" />
+    <script src="server.lua" type="server" cache="false" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="vehicle_models.xml" />
+</meta>

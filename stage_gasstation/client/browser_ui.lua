@@ -1,0 +1,3 @@
+-- HTML CEF şu an pasif (dxDrawImage tıklama almaz).
+-- Satın alma / kod girişi client/ui.lua dx arayüzünden çalışır.
+-- İleride GUI browser (createBrowser + focus) ile HTML açılabilir.

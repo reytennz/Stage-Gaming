@@ -1,0 +1,536 @@
+[
+  {
+    "id": 534,
+    "name": "Alfa Romeo Giulia",
+    "price": 210000,
+    "stock": 6
+  },
+  {
+    "id": 461,
+    "name": "Aprilia RSV4",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 471,
+    "name": "ATV Army",
+    "price": 160000,
+    "stock": 10
+  },
+  {
+    "id": 466,
+    "name": "Audi A4",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 567,
+    "name": "Audi R8",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 509,
+    "name": "Bisiklet Basik Cocuk",
+    "price": 160000,
+    "stock": 10
+  },
+  {
+    "id": 404,
+    "name": "BMW 525",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 549,
+    "name": "BMW Cabrio",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 575,
+    "name": "BMW E30",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 527,
+    "name": "BMW E60",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 477,
+    "name": "BMW M3",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 565,
+    "name": "BMW M3 V2",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 546,
+    "name": "BMW M4",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 541,
+    "name": "BMW M5 F10",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 536,
+    "name": "Dacia Polis",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 494,
+    "name": "Dodge Charger 1970",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 502,
+    "name": "Dodge Demon",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 400,
+    "name": "Escalade Cadillac",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 402,
+    "name": "Ferrari 458 Italia",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 603,
+    "name": "Fiat Albea",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 507,
+    "name": "Fiat Doblo",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 535,
+    "name": "Fiat Ducato",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 413,
+    "name": "Fiat Fiorino",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 525,
+    "name": "Ford Cekici",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 560,
+    "name": "Ford Courier",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 470,
+    "name": "Ford F-150",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 529,
+    "name": "Ford Focus Sedan",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 503,
+    "name": "Ford Mustang GT",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 416,
+    "name": "Ford Transit",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 585,
+    "name": "Ford Transit",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 487,
+    "name": "Helikopter",
+    "price": 300000,
+    "stock": 2
+  },
+  {
+    "id": 543,
+    "name": "Honda Civic Hb",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 561,
+    "name": "Honda Civic Type R",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 411,
+    "name": "Honda Civic VTEC",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 426,
+    "name": "Honda S2000",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 405,
+    "name": "Honda S2000 Ustu Acik",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 421,
+    "name": "Hyundai Accent",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 401,
+    "name": "Hyundai H 100",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 431,
+    "name": "Kamil Koc Otobus",
+    "price": 300000,
+    "stock": 2
+  },
+  {
+    "id": 521,
+    "name": "Kawasaki Ninja H2R",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 581,
+    "name": "Kuba Motor",
+    "price": 160000,
+    "stock": 10
+  },
+  {
+    "id": 442,
+    "name": "Lada Vaz",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 580,
+    "name": "Lamborghini Huracan",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 558,
+    "name": "Mazda RX 7",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 587,
+    "name": "Mazda RX-8",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 445,
+    "name": "Mazda Speed 3",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 518,
+    "name": "Mclaren P1 Sport Pack",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 474,
+    "name": "Mercedes Actros",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 410,
+    "name": "Mercedes AMG GT",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 479,
+    "name": "Mercedes Cls63",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 600,
+    "name": "Mercedes E 500",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 579,
+    "name": "Mercedes G63",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 533,
+    "name": "Mercedes S600 Maybach",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 545,
+    "name": "Mercedes Sprinter",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 492,
+    "name": "Mitsubishi Evo 9",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 434,
+    "name": "Murat 124",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 589,
+    "name": "Nissan 240 Sx",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 562,
+    "name": "Nissan 350Z",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 517,
+    "name": "Nissan Polis",
+    "price": 300000,
+    "stock": 7
+  },
+  {
+    "id": 439,
+    "name": "Nissan Qashqai",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 555,
+    "name": "Nissan Silvia S14",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 451,
+    "name": "Nissan Silvia S15",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 500,
+    "name": "Nissan Skyline GT-R35",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 412,
+    "name": "Nissan Skyline R33",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 422,
+    "name": "Nissan Skyline R34",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 458,
+    "name": "Opel Insignia",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 605,
+    "name": "Peugeot 106",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 429,
+    "name": "Porsche 911 GT",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 505,
+    "name": "Range Rover",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 576,
+    "name": "Range Rover",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 559,
+    "name": "Renault Clio",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 566,
+    "name": "Renault Megane 2",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 550,
+    "name": "Renault Toros",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 457,
+    "name": "Renault Twizy",
+    "price": 160000,
+    "stock": 10
+  },
+  {
+    "id": 496,
+    "name": "Skoda Super B",
+    "price": 260000,
+    "stock": 10
+  },
+  {
+    "id": 526,
+    "name": "Subaru Impreza",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 415,
+    "name": "Tofas Dogan",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 491,
+    "name": "Tofas Dogan SLX",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 582,
+    "name": "Tofas Izmir Isi",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 596,
+    "name": "Tofas Kartal SLX",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 551,
+    "name": "Tofas Sahin",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 438,
+    "name": "Tofas Tempra",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 418,
+    "name": "Toyota Mark 2",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 475,
+    "name": "Toyota Supra",
+    "price": 620000,
+    "stock": 5
+  },
+  {
+    "id": 542,
+    "name": "Toyota Supra 2020",
+    "price": 900000,
+    "stock": 3
+  },
+  {
+    "id": 519,
+    "name": "Ucak Solo Turk",
+    "price": 300000,
+    "stock": 2
+  },
+  {
+    "id": 419,
+    "name": "Volkswagen Golf",
+    "price": 185000,
+    "stock": 10
+  },
+  {
+    "id": 436,
+    "name": "Volkswagen Passat",
+    "price": 430000,
+    "stock": 6
+  },
+  {
+    "id": 602,
+    "name": "Volkswagen Scirocco",
+    "price": 620000,
+    "stock": 5
+  }
+]

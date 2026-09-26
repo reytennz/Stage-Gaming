@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: transparent;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            padding: 8px;
+        }
+
+        #toast-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .toast-card {
+            position: relative;
+            width: 320px;
+            min-height: 70px;
+            border-radius: 6px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 4px 10px -2px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .toast-success {
+            background: linear-gradient(108deg, rgba(20, 52, 32, 0.92) 0%, rgba(22, 58, 35, 0.92) 58%, rgba(28, 31, 35, 0.94) 58.2%, rgba(25, 28, 32, 0.96) 100%);
+            border-left: 2px solid #2ecc71;
+        }
+
+        .toast-info {
+            background: linear-gradient(108deg, rgba(16, 52, 64, 0.92) 0%, rgba(18, 58, 72, 0.92) 58%, rgba(28, 31, 35, 0.94) 58.2%, rgba(25, 28, 32, 0.96) 100%);
+            border-left: 2px solid #00bcd4;
+        }
+
+        .toast-warning {
+            background: linear-gradient(108deg, rgba(64, 50, 16, 0.92) 0%, rgba(72, 56, 18, 0.92) 58%, rgba(28, 31, 35, 0.94) 58.2%, rgba(25, 28, 32, 0.96) 100%);
+            border-left: 2px solid #f1c40f;
+        }
+
+        .toast-error {
+            background: linear-gradient(108deg, rgba(62, 22, 26, 0.92) 0%, rgba(70, 24, 29, 0.92) 58%, rgba(28, 31, 35, 0.94) 58.2%, rgba(25, 28, 32, 0.96) 100%);
+            border-left: 2px solid #e74c3c;
+        }
+
+        .color-success { color: #2ecc71; }
+        .color-info    { color: #00bcd4; }
+        .color-warning { color: #f1c40f; }
+        .color-error   { color: #e74c3c; }
+
+        .stroke-success { stroke: #2ecc71; }
+        .stroke-info    { stroke: #00bcd4; }
+        .stroke-warning { stroke: #f1c40f; }
+        .stroke-error   { stroke: #e74c3c; }
+
+        .toast-content {
+            padding: 11px 13px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 70px;
+        }
+
+        .toast-left {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            max-width: 220px;
+        }
+
+        .hex-icon-box {
+            position: relative;
+            width: 26px;
+            height: 26px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hex-icon-box svg.inner-icon {
+            position: absolute;
+            width: 13px;
+            height: 13px;
+        }
+
+        .text-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .toast-title {
+            font-size: 13.5px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            line-height: 1.1;
+        }
+
+        .toast-message {
+            font-size: 11.5px;
+            font-weight: 400;
+            color: #d1d5db;
+            letter-spacing: 0.1px;
+            line-height: 1.35;
+            word-break: break-word;
+        }
+
+        .toast-badge {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 2px;
+        }
+
+        .toast-badge svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .toast-badge span {
+            position: relative;
+            font-size: 11px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <script>
+        const titles = {
+            success: 'Başarılı',
+            info: 'Bilgi',
+            warning: 'Uyarı',
+            error: 'Hata'
+        };
+
+        function getIconSvg(type) {
+            if (type === 'success') {
+                return '<svg viewBox="0 0 24 24" class="inner-icon stroke-success" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            } else if (type === 'info') {
+                return '<svg viewBox="0 0 24 24" class="inner-icon stroke-info" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="16" x2="12" y2="11"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+            } else if (type === 'warning') {
+                return '<svg viewBox="0 0 24 24" class="inner-icon stroke-warning" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+            } else {
+                return '<svg viewBox="0 0 24 24" class="inner-icon stroke-error" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function addNotification(type, title, message, count, duration) {
+            type = (type || 'info').toLowerCase();
+            if (!['success', 'info', 'warning', 'error'].includes(type)) {
+                type = 'info';
+            }
+            if (!title || title.trim() === '') {
+                title = titles[type] || 'Bildirim';
+            }
+            message = message || '';
+            duration = parseInt(duration) || 5000;
+
+            const container = document.getElementById('toast-container');
+            const card = document.createElement('div');
+            card.className = 'toast-card toast-' + type;
+
+            let badgeHtml = '';
+            if (count && String(count).trim() !== '') {
+                badgeHtml = '<div class="toast-badge">' +
+                    '<svg viewBox="0 0 100 100" class="stroke-' + type + '" stroke-width="6" fill="rgba(255, 255, 255, 0.04)">' +
+                        '<polygon points="50 4, 93 25, 93 75, 50 96, 7 75, 7 25" />' +
+                    '</svg>' +
+                    '<span class="toast-title color-' + type + '">' + escapeHtml(count) + '</span>' +
+                '</div>';
+            }
+
+            card.innerHTML = '<div class="toast-content">' +
+                '<div class="toast-left">' +
+                    '<div class="hex-icon-box">' +
+                        '<svg viewBox="0 0 100 100" class="stroke-' + type + '" stroke-width="8" fill="none">' +
+                            '<polygon points="50 4, 93 25, 93 75, 50 96, 7 75, 7 25" />' +
+                        '</svg>' +
+                        getIconSvg(type) +
+                    '</div>' +
+                    '<div class="text-wrap">' +
+                        '<span class="toast-title color-' + type + '">' + escapeHtml(title) + '</span>' +
+                        '<p class="toast-message">' + escapeHtml(message) + '</p>' +
+                    '</div>' +
+                '</div>' +
+                badgeHtml +
+            '</div>';
+
+            container.insertBefore(card, container.firstChild);
+
+            setTimeout(() => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(50px)';
+                setTimeout(() => {
+                    if (card.parentNode) card.parentNode.removeChild(card);
+                }, 350);
+            }, duration);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<meta>
+    <info name="Stage Gaming AntiCheat" author="Stage Gaming" version="3.0" />
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" />
+    <export function="grantMovementExemption" type="server" />
+</meta>

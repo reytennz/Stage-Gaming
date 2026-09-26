@@ -1,0 +1,43 @@
+<meta>
+    <info author="Reytennz / Yakup" type="script" version="14.0" name="AscendX_Tuning + DRP Performance Tablet"
+          description="Illegal tuning sistemi ve mekanik tablet/depo/kumanda sistemi tek kaynakta birleşik" />
+
+    <!-- config.lua PAYLAŞILAN ayar dosyasıdır, her zaman en önce yüklenmeli -->
+    <script src="config.lua" type="shared" cache="false" />
+
+    <!-- ORTAK VERİTABANI KATMANI (tuning + tablet aynı bağlantıyı kullanır) -->
+    <script src="db.lua" type="server" />
+
+    <!-- TUNING (eski stage_illegalmec) -->
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" />
+
+    <!-- TABLET / DEPO / KUMANDA (eski drp_performance) -->
+    <script src="tablet_server.lua" type="server" cache="false" />
+    <script src="depo.lua" type="server" cache="false" />
+    <script src="tablet_client.lua" type="client" cache="false" />
+    <script src="kumanda.lua" type="client" cache="false" />
+
+    <requires_resource src="stage_mysql" />
+    <requires_resource src="stage_economy" />
+
+    <!-- Dışarıdan çağrılabilen fonksiyonlar (tablet_server.lua içinde) -->
+    <export function="drpGetPartPrice" type="server" http="false" />
+    <export function="drpGetShopOwner" type="server" http="false" />
+    <export function="drpIsShopEmployee" type="server" http="false" />
+    <export function="drpParcaTak" type="server" http="false" />
+
+    <!-- TUNING dosyaları -->
+    <file src="smoke.png" />
+    <file src="sounds/turbo.wav" />
+    <file src="sounds/pop.wav" />
+
+    <!-- TABLET dosyaları -->
+    <file src="assets/tablet_bg.png" />
+    <file src="assets/tablet_bg1.png" />
+    <file src="assets/tablet_bg2.png" />
+    <file src="assets/market.png" />
+    <file src="assets/settings.png" />
+    <file src="assets/key.png" />
+    <file src="assets/duty.png" />
+</meta>

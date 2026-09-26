@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage Characters</title>
+    <link rel="stylesheet" href="http://mta/local/css/chars.css">
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <div class="header">
+        <h1>STAGE</h1>
+        <p>Karakter Seç / Oluştur</p>
+    </div>
+    
+    <!-- 3 SLOT -->
+    <div class="slots" id="slots">
+        <div class="slot empty" data-slot="1" onclick="onSlotClick(1)">
+            <div class="slot-num">1</div>
+            <div class="slot-body" id="slot1">
+                <div class="empty-text">+ Boş Slot<br><small>Karakter Oluştur</small></div>
+            </div>
+        </div>
+        <div class="slot empty" data-slot="2" onclick="onSlotClick(2)">
+            <div class="slot-num">2</div>
+            <div class="slot-body" id="slot2">
+                <div class="empty-text">+ Boş Slot<br><small>Karakter Oluştur</small></div>
+            </div>
+        </div>
+        <div class="slot empty" data-slot="3" onclick="onSlotClick(3)">
+            <div class="slot-num">3</div>
+            <div class="slot-body" id="slot3">
+                <div class="empty-text">+ Boş Slot<br><small>Karakter Oluştur</small></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CREATE PANEL -->
+    <div class="create-panel hidden" id="createPanel">
+        <h2>Karakter Oluştur <span id="createSlotLabel">#1</span></h2>
+        
+        <div class="form-row">
+            <input type="text" id="cName" placeholder="İsim" maxlength="16">
+            <input type="text" id="cSurname" placeholder="Soyisim" maxlength="16">
+        </div>
+        <div class="form-row">
+            <input type="number" id="cAge" placeholder="Yaş" min="16" max="80" value="21">
+            <input type="number" id="cHeight" placeholder="Boy (cm)" min="150" max="210" value="175">
+        </div>
+        <div class="form-row">
+            <select id="cCountry">
+                <option value="TR">Türkiye</option>
+                <option value="US">Amerika</option>
+                <option value="DE">Almanya</option>
+                <option value="RU">Rusya</option>
+                <option value="GB">İngiltere</option>
+                <option value="FR">Fransa</option>
+                <option value="AZ">Azerbaycan</option>
+                <option value="OTHER">Diğer</option>
+            </select>
+            <select id="cSkin">
+                <option value="0">CJ (0)</option>
+                <option value="1">Truth (1)</option>
+                <option value="2">Maccer (2)</option>
+                <option value="7">Male 7</option>
+                <option value="15">Male 15</option>
+                <option value="17">Male 17</option>
+                <option value="21">Male 21</option>
+                <option value="23">Male 23</option>
+                <option value="26">Male 26</option>
+                <option value="29">Male 29</option>
+                <option value="46">Male 46</option>
+                <option value="47">Male 47</option>
+                <option value="48">Male 48</option>
+                <option value="60">Male 60</option>
+                <option value="9">Female 9</option>
+                <option value="10">Female 10</option>
+                <option value="11">Female 11</option>
+                <option value="12">Female 12</option>
+                <option value="13">Female 13</option>
+                <option value="31">Female 31</option>
+                <option value="40">Female 40</option>
+                <option value="41">Female 41</option>
+                <option value="55">Female 55</option>
+                <option value="56">Female 56</option>
+            </select>
+        </div>
+        
+        <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="closeCreate()">İptal</button>
+            <button type="button" class="btn-create" onclick="submitCreate()">Oluştur</button>
+        </div>
+        <div id="charMsg" class="msg"></div>
+    </div>
+    
+    <div class="hint">Dolu slota tıkla = Spawn · Boş slota tıkla = Oluştur</div>
+    
+    <script src="http://mta/local/js/chars.js"></script>
+</body>
+</html>

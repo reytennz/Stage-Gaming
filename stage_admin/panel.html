@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage Admin</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0d0f14;
+  --surface:  #141720;
+  --surface2: #1c2030;
+  --border:   #252b3a;
+  --accent:   #4f8ef7;
+  --success:  #3ecf8e;
+  --warning:  #f5a623;
+  --danger:   #e05c5c;
+  --text:     #d4d8e8;
+  --textdim:  #6b738f;
+  --online:   #3ecf8e;
+  --offline:  #6b738f;
+}
+
+html, body { background: #0d0f14; color: #d4d8e8; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; height: 100%; width: 100%; margin: 0; padding: 0; overflow: hidden; user-select: none; }
+
+/* LAYOUT */
+#app { display: flex; flex-direction: column; height: 100vh; }
+
+/* HEADER */
+#header { display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 48px; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+#logo { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: 1px; margin-right: 8px; }
+#rank-badge { padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; background: var(--accent); color: #fff; }
+#header-stats { margin-left: auto; display: flex; gap: 20px; }
+.hstat { color: var(--textdim); font-size: 12px; }
+.hstat span { color: var(--text); font-weight: 600; }
+#close-btn { margin-left: 16px; background: var(--danger); border: none; color: #fff; font-size: 14px; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+/* TABS */
+#tabs { display: flex; padding: 0 16px; gap: 2px; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; overflow-x: auto; }
+.tab { padding: 10px 16px; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--textdim); border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* CONTENT */
+#content { flex: 1; overflow: hidden; padding: 14px 16px; }
+.tab-panel { display: none; height: 100%; }
+.tab-panel.active { display: flex; gap: 12px; height: 100%; }
+
+/* PANELS */
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.panel-header { padding: 8px 14px; background: var(--surface2); border-bottom: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--textdim); text-transform: uppercase; letter-spacing: .5px; display: flex; align-items: center; gap: 8px; }
+.panel-body { padding: 12px; overflow-y: auto; height: calc(100% - 37px); }
+
+/* PLAYER LIST */
+#players-col { width: 340px; flex-shrink: 0; }
+#player-list { list-style: none; overflow-y: auto; height: 100%; }
+#player-list li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; cursor: pointer; border-radius: 6px; transition: background .1s; }
+#player-list li:hover { background: var(--surface2); }
+#player-list li.selected { background: rgba(79,142,247,.15); border-left: 2px solid var(--accent); padding-left: 10px; }
+.player-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.player-dot.online { background: var(--online); box-shadow: 0 0 5px var(--online); }
+.player-dot.offline { background: var(--offline); }
+.player-info { flex: 1; min-width: 0; }
+.player-name { font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-meta { font-size: 11px; color: var(--textdim); }
+
+/* DETAIL */
+#detail-col { flex: 1; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+
+/* STAT CARDS */
+.stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; flex-shrink: 0; }
+.stat-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; }
+.stat-card .label { font-size: 11px; color: var(--textdim); margin-bottom: 4px; }
+.stat-card .value { font-size: 18px; font-weight: 700; }
+.stat-card.cash .value  { color: var(--success); }
+.stat-card.bank .value  { color: var(--accent); }
+.stat-card.veh .value   { color: var(--warning); }
+.stat-card.time .value  { color: var(--text); }
+
+/* PROFILE BLOCK */
+.profile-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; flex-shrink: 0; }
+.profile-block .pname { font-size: 16px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.badge.online  { background: rgba(62,207,142,.15); color: var(--online); }
+.badge.offline { background: rgba(107,115,143,.15); color: var(--offline); }
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px 20px; }
+.profile-row { display: flex; gap: 6px; font-size: 12px; }
+.profile-row .k { color: var(--textdim); width: 90px; flex-shrink: 0; }
+.profile-row .v { color: var(--text); font-weight: 500; }
+
+/* LIVE VEHICLE STRIP */
+.live-veh { background: rgba(245,166,35,.08); border: 1px solid rgba(245,166,35,.3); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: var(--warning); display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.live-veh svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* SECTION TABS inside detail */
+.dtabs { display: flex; gap: 2px; flex-shrink: 0; border-bottom: 1px solid var(--border); }
+.dtab { padding: 6px 14px; font-size: 12px; color: var(--textdim); cursor: pointer; border-bottom: 2px solid transparent; }
+.dtab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.dsection { display: none; flex: 1; overflow: hidden; }
+.dsection.active { display: block; overflow-y: auto; }
+
+/* TABLE */
+.dt { width: 100%; border-collapse: collapse; font-size: 12px; }
+.dt th { padding: 6px 10px; text-align: left; color: var(--textdim); font-weight: 600; background: var(--surface2); border-bottom: 1px solid var(--border); position: sticky; top: 0; }
+.dt td { padding: 7px 10px; border-bottom: 1px solid rgba(37,43,58,.7); }
+.dt tr:hover td { background: rgba(255,255,255,.03); }
+.dt .plus  { color: var(--success); }
+.dt .minus { color: var(--danger); }
+.dt .badge-model { background: rgba(79,142,247,.12); color: var(--accent); padding: 1px 6px; border-radius: 4px; font-size: 11px; }
+.dt .badge-plate { background: var(--surface2); padding: 1px 6px; border-radius: 4px; font-size: 11px; }
+.empty { color: var(--textdim); text-align: center; padding: 40px; font-size: 13px; }
+
+/* ACTIONS */
+#actions-col { width: 230px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+.action-group { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+.action-group h4 { font-size: 11px; font-weight: 600; color: var(--textdim); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+.btn { display: block; width: 100%; padding: 7px 10px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 4px; transition: opacity .1s; }
+.btn:hover { opacity: .85; }
+.btn:last-child { margin-bottom: 0; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-success { background: var(--success); color: #000; }
+.btn-warning { background: var(--warning); color: #000; }
+.btn-danger  { background: var(--danger);  color: #fff; }
+.btn-ghost   { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+.input { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; color: var(--text); font-size: 12px; margin-bottom: 4px; outline: none; }
+.input:focus { border-color: var(--accent); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* NO SELECT */
+.no-player { color: var(--textdim); display: flex; align-items: center; justify-content: center; height: 100%; font-size: 14px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- HEADER -->
+  <div id="header">
+    <div id="logo">⚡ STAGE ADMIN</div>
+    <div id="rank-badge">User</div>
+    <div id="header-stats">
+      <div class="hstat">Online: <span id="h-online">0</span></div>
+      <div class="hstat">Raporlar: <span id="h-reports">0</span></div>
+      <div class="hstat">Uptime: <span id="h-uptime">-</span></div>
+    </div>
+    <button id="close-btn" onclick="closePanel()">✕</button>
+  </div>
+
+  <!-- TABS -->
+  <div id="tabs">
+    <div class="tab active" data-tab="players">Oyuncular</div>
+    <div class="tab" data-tab="tracking">Takip</div>
+    <div class="tab" data-tab="resources">Scriptler</div>
+    <div class="tab" data-tab="events">Etkinlik</div>
+    <div class="tab" data-tab="bans">Banlar</div>
+    <div class="tab" data-tab="reports">Raporlar</div>
+    <div class="tab" data-tab="logs">Loglar</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content">
+
+    <!-- OYUNCULAR -->
+    <div id="tab-players" class="tab-panel active">
+      <div class="panel" id="players-col">
+        <div class="panel-header">
+          <span>Oyuncular</span>
+          <input id="player-search" class="input" style="margin:0;flex:1;max-width:160px;" placeholder="Ara..." oninput="filterPlayers(this.value)">
+        </div>
+        <div class="panel-body" style="padding:6px;">
+          <ul id="player-list"></ul>
+        </div>
+      </div>
+
+      <div id="detail-col">
+        <div id="no-player" class="no-player panel" style="flex:1">← Listeden oyuncu seçin</div>
+
+        <div id="player-detail" style="display:none;flex:1;flex-direction:column;gap:10px;overflow:hidden;">
+          <!-- Profil -->
+          <div class="profile-block">
+            <div class="pname">
+              <span id="d-name">-</span>
+              <span id="d-status-badge" class="badge offline">OFFLINE</span>
+            </div>
+            <div class="profile-grid">
+              <div class="profile-row"><span class="k">Serial</span><span class="v" id="d-serial">-</span></div>
+              <div class="profile-row"><span class="k">IP</span><span class="v" id="d-ip">-</span></div>
+              <div class="profile-row"><span class="k">Hesap</span><span class="v" id="d-account">-</span></div>
+              <div class="profile-row"><span class="k">Toplam Süre</span><span class="v" id="d-playtime">-</span></div>
+              <div class="profile-row"><span class="k">Son Giriş</span><span class="v" id="d-lastjoin">-</span></div>
+              <div class="profile-row"><span class="k">Giriş Sayısı</span><span class="v" id="d-joincount">-</span></div>
+            </div>
+          </div>
+
+          <!-- Stat cards -->
+          <div class="stat-cards">
+            <div class="stat-card cash"><div class="label">💵 Nakit</div><div class="value" id="d-cash">$0</div></div>
+            <div class="stat-card bank"><div class="label">🏦 Banka</div><div class="value" id="d-bank">$0</div></div>
+            <div class="stat-card veh"><div class="label">🚗 Sahip Araç</div><div class="value" id="d-vehcount">0</div></div>
+            <div class="stat-card time"><div class="label">⏱ Bu Oturum</div><div class="value" id="d-session">-</div></div>
+          </div>
+
+          <!-- Live vehicle -->
+          <div id="live-veh-strip" class="live-veh" style="display:none">
+            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-5h14v5z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="16.5" cy="14.5" r="1.5"/></svg>
+            Şu an araçta: <strong id="live-veh-name">-</strong> &nbsp;|&nbsp; Plaka: <strong id="live-veh-plate">-</strong>
+          </div>
+
+          <!-- Detail sub-tabs -->
+          <div class="dtabs">
+            <div class="dtab active" data-dsec="sec-vehicles">Araçlar</div>
+            <div class="dtab" data-dsec="sec-economy">Para Geçmişi</div>
+            <div class="dtab" data-dsec="sec-items">Itemler</div>
+            <div class="dtab" data-dsec="sec-ac">Anti-Cheat</div>
+          </div>
+
+          <!-- Araçlar -->
+          <div id="sec-vehicles" class="dsection active">
+            <table class="dt">
+              <thead><tr><th>Model</th><th>Plaka</th><th>Veren Admin</th><th>Tarih</th></tr></thead>
+              <tbody id="veh-body"></tbody>
+            </table>
+          </div>
+
+          <!-- Para Geçmişi -->
+          <div id="sec-economy" class="dsection">
+            <table class="dt">
+              <thead><tr><th>Miktar</th><th>Sebep</th><th>Kaynak</th><th>Tarih</th></tr></thead>
+              <tbody id="eco-body"></tbody>
+            </table>
+          </div>
+
+          <!-- İtemler -->
+          <div id="sec-items" class="dsection">
+            <table class="dt">
+              <thead><tr><th>İşlem</th><th>Item</th><th>Adet</th><th>Kaynak</th></tr></thead>
+              <tbody id="item-body"></tbody>
+            </table>
+          </div>
+
+          <!-- AC -->
+          <div id="sec-ac" class="dsection">
+            <table class="dt">
+              <thead><tr><th>Modül</th><th>Bilgi</th><th>Risk</th><th>Aksiyon</th><th>Tarih</th></tr></thead>
+              <tbody id="ac-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div id="actions-col">
+        <div class="action-group">
+          <h4>Genel</h4>
+          <button class="btn btn-primary" onclick="act('goto')">Oyuncuya Işınlan</button>
+          <button class="btn btn-ghost"   onclick="act('bring')">Oyuncuyu Getir</button>
+          <button class="btn btn-ghost"   onclick="act('spectate')">İzle</button>
+        </div>
+        <div class="action-group">
+          <h4>Para</h4>
+          <input id="in-cash" class="input" type="number" placeholder="Nakit miktar">
+          <button class="btn btn-success" onclick="actVal('givecash','in-cash')">Nakit Ver</button>
+          <button class="btn btn-danger"  onclick="actVal('takecash','in-cash')">Nakit Al</button>
+          <input id="in-bank" class="input" type="number" placeholder="Banka miktar">
+          <button class="btn btn-success" onclick="actVal('givebank','in-bank')">Bankaya Yatır</button>
+          <button class="btn btn-danger"  onclick="actVal('takebank','in-bank')">Bankadan Çek</button>
+        </div>
+        <div class="action-group">
+          <h4>Araç</h4>
+          <input id="in-veh" class="input" type="number" placeholder="Model ID">
+          <button class="btn btn-warning" onclick="actVal('givevehicle','in-veh')">Araç Ver</button>
+        </div>
+        <div class="action-group">
+          <h4>Ceza</h4>
+          <input id="in-warn-reason" class="input" placeholder="Uyarı sebebi">
+          <button class="btn btn-warning" onclick="actVal('warn','in-warn-reason')">Uyar</button>
+          <input id="in-kick-reason" class="input" placeholder="Kick sebebi">
+          <button class="btn btn-danger" onclick="actVal('kick','in-kick-reason')">Kick</button>
+          <input id="in-ban-reason" class="input" placeholder="Ban sebebi">
+          <input id="in-ban-dur" class="input" type="number" placeholder="Süre (dk, 0=süresiz)">
+          <button class="btn btn-danger" onclick="banPlayer()">Ban</button>
+        </div>
+        <div class="action-group">
+          <h4>Görünürlük</h4>
+          <button class="btn btn-ghost" onclick="act('freeze')">Dondur / Çöz</button>
+          <button class="btn btn-ghost" onclick="act('mute')">Sustur / Aç</button>
+          <button class="btn btn-ghost" onclick="act('togglegod')">God Mode</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAKİP -->
+    <div id="tab-tracking" class="tab-panel">
+      <div class="panel" id="players-col">
+        <div class="panel-header">Oyuncu Geçmişi</div>
+        <div class="panel-body" style="padding:6px;"><ul id="track-list"></ul></div>
+      </div>
+      <div id="track-detail" style="flex:1;overflow:hidden;">
+        <div id="no-track" class="no-player panel" style="height:100%;">← Listeden oyuncu seçin</div>
+        <div id="track-content" style="display:none;flex-direction:column;gap:10px;height:100%;overflow:hidden;">
+          <div class="profile-block">
+            <div class="pname"><span id="td-name">-</span><span id="td-badge" class="badge offline">OFFLINE</span></div>
+            <div class="profile-grid">
+              <div class="profile-row"><span class="k">Toplam Süre</span><span class="v" id="td-playtime">-</span></div>
+              <div class="profile-row"><span class="k">Son Giriş</span><span class="v" id="td-lastjoin">-</span></div>
+              <div class="profile-row"><span class="k">Giriş Sayısı</span><span class="v" id="td-joincount">-</span></div>
+              <div class="profile-row"><span class="k">Nakit</span><span class="v" style="color:var(--success)" id="td-cash">-</span></div>
+              <div class="profile-row"><span class="k">Banka</span><span class="v" style="color:var(--accent)" id="td-bank">-</span></div>
+              <div class="profile-row"><span class="k">Araç</span><span class="v" style="color:var(--warning)" id="td-liveveh">-</span></div>
+            </div>
+          </div>
+          <div class="dtabs">
+            <div class="dtab active" data-dsec="tsec-veh">Araçlar</div>
+            <div class="dtab" data-dsec="tsec-eco">Para Geçmişi</div>
+            <div class="dtab" data-dsec="tsec-item">İtemler</div>
+            <div class="dtab" data-dsec="tsec-ac2">Anti-Cheat</div>
+          </div>
+          <div id="tsec-veh" class="dsection active" style="flex:1">
+            <table class="dt"><thead><tr><th>Model</th><th>Plaka</th><th>Veren</th><th>Tarih</th></tr></thead><tbody id="t-veh-body"></tbody></table>
+          </div>
+          <div id="tsec-eco" class="dsection">
+            <table class="dt"><thead><tr><th>Miktar</th><th>Sebep</th><th>Kaynak</th><th>Tarih</th></tr></thead><tbody id="t-eco-body"></tbody></table>
+          </div>
+          <div id="tsec-item" class="dsection">
+            <table class="dt"><thead><tr><th>İşlem</th><th>Item</th><th>Adet</th><th>Kaynak</th></tr></thead><tbody id="t-item-body"></tbody></table>
+          </div>
+          <div id="tsec-ac2" class="dsection">
+            <table class="dt"><thead><tr><th>Modül</th><th>Bilgi</th><th>Risk</th><th>Aksiyon</th><th>Tarih</th></tr></thead><tbody id="t-ac2-body"></tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- SCRIPTLER (RESOURCES) -->
+    <div id="tab-resources" class="tab-panel">
+      <div class="panel" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+        <div class="panel-header" style="justify-content:space-between;display:flex;align-items:center;">
+          <span>Sunucu Scriptleri (Resources)</span>
+          <div style="display:flex;gap:8px;">
+            <input id="res-search" class="input" style="margin:0;width:200px;" placeholder="Script ara..." oninput="filterResources(this.value)">
+            <button class="btn btn-primary" onclick="mtaCall('requestData')">Yenile</button>
+          </div>
+        </div>
+        <div class="panel-body" style="flex:1;overflow:auto;padding:10px;">
+          <table class="dt" style="width:100%;">
+            <thead><tr><th>Resource Adı</th><th>Durum</th><th style="width:250px;">İşlemler</th></tr></thead>
+            <tbody id="res-tbody"><tr><td colspan="3" class="empty">Yükleniyor...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETKİNLİK OLUŞTURMA -->
+    <div id="tab-events" class="tab-panel">
+      <div class="panel" style="flex:1;max-width:600px;margin:0 auto;display:flex;flex-direction:column;">
+        <div class="panel-header">Yeni Etkinlik Oluştur & Duyur</div>
+        <div class="panel-body" style="padding:16px;display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <label style="font-size:12px;color:var(--textdim);margin-bottom:4px;display:block;">Etkinlik Adı</label>
+            <input id="in-evt-name" class="input" style="width:100%;" placeholder="örn: Drift Yarışı, Para Avı">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--textdim);margin-bottom:4px;display:block;">Açıklama / Detaylar</label>
+            <textarea id="in-evt-desc" class="input" style="width:100%;height:80px;resize:vertical;" placeholder="Etkinlik kuralları ve katılım detayları..."></textarea>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <div style="flex:1;">
+              <label style="font-size:12px;color:var(--textdim);margin-bottom:4px;display:block;">Ödül</label>
+              <input id="in-evt-reward" class="input" style="width:100%;" placeholder="örn: 50.000$ + Özel Araç">
+            </div>
+            <div style="width:140px;">
+              <label style="font-size:12px;color:var(--textdim);margin-bottom:4px;display:block;">Süre (Dakika)</label>
+              <input id="in-evt-dur" type="number" class="input" style="width:100%;" value="30">
+            </div>
+          </div>
+          <button class="btn btn-success" style="margin-top:10px;padding:10px;" onclick="submitNewEvent()">🎉 Etkinliği Başlat ve Herkese Duyur</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BANLAR -->
+    <div id="tab-bans" class="tab-panel">
+      <div class="panel" style="flex:1">
+        <div class="panel-header">Aktif Banlar</div>
+        <div class="panel-body" style="padding:0">
+          <table class="dt">
+            <thead><tr><th>ID</th><th>Oyuncu</th><th>Admin</th><th>Sebep</th><th>Bitiş</th><th></th></tr></thead>
+            <tbody id="ban-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAPORLAR -->
+    <div id="tab-reports" class="tab-panel">
+      <div class="panel" style="flex:1">
+        <div class="panel-header">Açık Raporlar</div>
+        <div class="panel-body" style="padding:0">
+          <table class="dt">
+            <thead><tr><th>ID</th><th>Oyuncu</th><th>Sebep</th><th>Durum</th><th></th></tr></thead>
+            <tbody id="report-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGLAR -->
+    <div id="tab-logs" class="tab-panel">
+      <div class="panel" style="flex:1">
+        <div class="panel-header">Admin Logları</div>
+        <div class="panel-body" style="padding:0">
+          <table class="dt">
+            <thead><tr><th>Admin</th><th>Hedef</th><th>Aksiyon</th><th>Detay</th><th>Tarih</th></tr></thead>
+            <tbody id="log-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ---- STATE ----
+let players = [], panelData = {}, traceData = {};
+let selectedPlayer = null, selectedTrackSerial = null;
+
+// ---- MTA BRIDGE (AJAX — sayfayı terk etmez, beyaz ekran yapmaz) ----
+function mtaCall(action, params) {
+  params = params || {};
+  var qs = 'action=' + encodeURIComponent(action);
+  for (var k in params) {
+    if (!Object.prototype.hasOwnProperty.call(params, k)) continue;
+    qs += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k] == null ? '' : params[k]);
+  }
+  try {
+    var x = new XMLHttpRequest();
+    x.open('GET', 'http://mta/local/bridge.html?' + qs, true);
+    x.send();
+  } catch (e) {}
+}
+
+// MTA → JS veri güncellemeleri
+window.updatePlayers    = d => { players = d; renderPlayerList(); };
+window.updatePanelData  = d => { panelData = d; renderBans(); renderReports(); renderLogs(); updateHeader(); if(d.resources) window.updateResources(d.resources); };
+window.updateTrace      = d => { traceData = d; renderTrace(); };
+window.updateDashboard  = d => { updateHeader(d); };
+
+// ---- UTILS ----
+function fmt(n) {
+  n = Math.floor(+n || 0);
+  return '$' + n.toLocaleString('tr-TR');
+}
+function fmtDur(s) {
+  s = Math.max(0, Math.floor(+s || 0));
+  const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60);
+  if (d) return `${d}g ${String(h).padStart(2,'0')}s ${String(m).padStart(2,'0')}d`;
+  return `${String(h).padStart(2,'0')}s ${String(m).padStart(2,'0')}d`;
+}
+function fmtDate(ts) {
+  if (!ts || ts <= 0) return '-';
+  return new Date(ts * 1000).toLocaleString('tr-TR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ---- HEADER ----
+function updateHeader(d) {
+  d = d || panelData.dashboard || {};
+  document.getElementById('h-online').textContent  = d.onlinePlayers  || 0;
+  document.getElementById('h-reports').textContent = d.activeReports  || 0;
+  document.getElementById('h-uptime').textContent  = fmtDur(d.uptimeSeconds || 0);
+}
+
+// ---- TABS ----
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab,.tab-panel').forEach(el => el.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+  if (t.dataset.tab === 'tracking' || t.dataset.tab === 'resources') mtaCall('requestData');
+}));
+document.querySelectorAll('.dtab').forEach(t => t.addEventListener('click', () => {
+  const parent = t.closest('.tab-panel, #track-content');
+  parent.querySelectorAll('.dtab,.dsection').forEach(el => el.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.dsec).classList.add('active');
+}));
+
+// ---- PLAYER LIST ----
+function renderPlayerList() {
+  const ul = document.getElementById('player-list');
+  const q  = (document.getElementById('player-search').value || '').toLowerCase();
+  ul.innerHTML = players
+    .filter(p => !q || p.name.toLowerCase().includes(q))
+    .map(p => `
+      <li class="${selectedPlayer===p.name?'selected':''}" onclick="selectPlayer('${esc(p.name)}')">
+        <div class="player-dot ${p.online?'online':'offline'}"></div>
+        <div class="player-info">
+          <div class="player-name">${esc(p.name)}</div>
+          <div class="player-meta">${p.online ? 'Online · ID '+p.id : 'Offline'}</div>
+        </div>
+      </li>`).join('');
+}
+function filterPlayers(q) { renderPlayerList(); }
+
+function selectPlayer(name) {
+  selectedPlayer = name;
+  renderPlayerList();
+  document.getElementById('no-player').style.display = 'none';
+  document.getElementById('player-detail').style.display = 'flex';
+  mtaCall('selectPlayer', { name: name });
+}
+
+// ---- PLAYER DETAIL ----
+window.updatePlayerDetail = function(d) {
+  const p = d.profile || {}, w = d.wallet || {}, lv = d.liveVehicle;
+
+  document.getElementById('d-name').textContent    = p.player_name || selectedPlayer || '-';
+  document.getElementById('d-serial').textContent  = (d.serial || '-').substring(0,12)+'...';
+  document.getElementById('d-ip').textContent      = d.ip || '-';
+  document.getElementById('d-account').textContent = p.last_account || '-';
+  document.getElementById('d-playtime').textContent = fmtDur(p.display_total_seconds || 0);
+  document.getElementById('d-lastjoin').textContent = fmtDate(p.last_join);
+  document.getElementById('d-joincount').textContent = p.join_count || 0;
+  document.getElementById('d-session').textContent  = fmtDur(p.session_seconds || 0);
+
+  const online = !!p.online;
+  const badge = document.getElementById('d-status-badge');
+  badge.textContent = online ? 'ONLINE' : 'OFFLINE';
+  badge.className = 'badge ' + (online ? 'online' : 'offline');
+
+  document.getElementById('d-cash').textContent = fmt(w.cash || 0);
+  document.getElementById('d-bank').textContent = fmt(w.bank || 0);
+  document.getElementById('d-vehcount').textContent = (d.vehicles || []).length;
+
+  const strip = document.getElementById('live-veh-strip');
+  if (lv) {
+    strip.style.display = 'flex';
+    document.getElementById('live-veh-name').textContent  = lv.model_name || '-';
+    document.getElementById('live-veh-plate').textContent = lv.plate || '-';
+  } else { strip.style.display = 'none'; }
+
+  // vehicles
+  const vb = document.getElementById('veh-body');
+  vb.innerHTML = (d.vehicles||[]).length
+    ? (d.vehicles||[]).map(v=>`<tr>
+        <td><span class="badge-model">${esc(v.model_name||v.model)}</span></td>
+        <td><span class="badge-plate">${esc(v.plate||'-')}</span></td>
+        <td>${esc(v.given_by||'-')}</td>
+        <td>${fmtDate(v.created_at)}</td></tr>`).join('')
+    : '<tr><td colspan="4" class="empty">Kayıtlı araç yok</td></tr>';
+
+  // economy
+  const eb = document.getElementById('eco-body');
+  eb.innerHTML = (d.economy||[]).length
+    ? (d.economy||[]).map(e=>{const plus=String(e.direction||'')==='+'; return`<tr>
+        <td class="${plus?'plus':'minus'}">${plus?'+':''}${fmt(e.amount||0)}</td>
+        <td>${esc(e.reason||'-')}</td>
+        <td>${esc(e.source_name||'-')}</td>
+        <td>${fmtDate(e.created_at)}</td></tr>`;}).join('')
+    : '<tr><td colspan="4" class="empty">Para geçmişi yok</td></tr>';
+
+  // items
+  const ib = document.getElementById('item-body');
+  ib.innerHTML = (d.items||[]).length
+    ? (d.items||[]).map(i=>`<tr>
+        <td>${esc(i.action||'-')}</td>
+        <td>${esc(i.item_id||'?')}</td>
+        <td>x${esc(i.amount||0)}</td>
+        <td>${esc(i.source_name||'-')}</td></tr>`).join('')
+    : '<tr><td colspan="4" class="empty">Item geçmişi yok</td></tr>';
+
+  // ac
+  const acb = document.getElementById('ac-body');
+  acb.innerHTML = (d.ac||[]).length
+    ? (d.ac||[]).map(a=>`<tr>
+        <td>${esc(a.module||'-')}</td>
+        <td>${esc(a.info||'-')}</td>
+        <td style="color:var(--warning)">${esc(a.risk||0)}</td>
+        <td>${esc(a.action||'-')}</td>
+        <td>${fmtDate(a.created_at)}</td></tr>`).join('')
+    : '<tr><td colspan="5" class="empty">AC kaydı yok</td></tr>';
+};
+
+// ---- TRACKING ----
+window.updateTrackList = function(activity) {
+  const ul = document.getElementById('track-list');
+  ul.innerHTML = (activity||[]).map(a=>`
+    <li class="${selectedTrackSerial===a.player_serial?'selected':''}" onclick="selectTrack('${esc(a.player_serial)}','${esc(a.player_name)}')">
+      <div class="player-dot ${a.online?'online':'offline'}"></div>
+      <div class="player-info">
+        <div class="player-name">${esc(a.player_name)}</div>
+        <div class="player-meta">${fmtDur(a.display_total_seconds||a.total_seconds||0)}</div>
+      </div>
+    </li>`).join('');
+};
+function selectTrack(serial, name) {
+  selectedTrackSerial = serial;
+  document.getElementById('no-track').style.display = 'none';
+  document.getElementById('track-content').style.display = 'flex';
+  mtaCall('trace', { serial: serial });
+}
+window.updateTraceDetail = function(d) {
+  const p = d.profile||{}, w = d.wallet||{}, lv = d.liveVehicle;
+  document.getElementById('td-name').textContent = p.player_name||'-';
+  const b = document.getElementById('td-badge');
+  b.textContent = p.online ? 'ONLINE':'OFFLINE';
+  b.className = 'badge '+(p.online?'online':'offline');
+  document.getElementById('td-playtime').textContent = fmtDur(p.display_total_seconds||0);
+  document.getElementById('td-lastjoin').textContent = fmtDate(p.last_join);
+  document.getElementById('td-joincount').textContent = p.join_count||0;
+  document.getElementById('td-cash').textContent = fmt(w.cash||0);
+  document.getElementById('td-bank').textContent = fmt(w.bank||0);
+  document.getElementById('td-liveveh').textContent = lv ? (lv.model_name+' ('+lv.plate+')') : '-';
+
+  document.getElementById('t-veh-body').innerHTML = (d.vehicles||[]).length
+    ? (d.vehicles||[]).map(v=>`<tr><td><span class="badge-model">${esc(v.model_name||v.model)}</span></td><td><span class="badge-plate">${esc(v.plate||'-')}</span></td><td>${esc(v.given_by||'-')}</td><td>${fmtDate(v.created_at)}</td></tr>`).join('')
+    : '<tr><td colspan="4" class="empty">Kayıtlı araç yok</td></tr>';
+
+  document.getElementById('t-eco-body').innerHTML = (d.economy||[]).length
+    ? (d.economy||[]).map(e=>{const plus=String(e.direction||'')==='+';return`<tr><td class="${plus?'plus':'minus'}">${plus?'+':''}${fmt(e.amount||0)}</td><td>${esc(e.reason||'-')}</td><td>${esc(e.source_name||'-')}</td><td>${fmtDate(e.created_at)}</td></tr>`;}).join('')
+    : '<tr><td colspan="4" class="empty">Para geçmişi yok</td></tr>';
+
+  document.getElementById('t-item-body').innerHTML = (d.items||[]).length
+    ? (d.items||[]).map(i=>`<tr><td>${esc(i.action||'-')}</td><td>${esc(i.item_id||'?')}</td><td>x${i.amount||0}</td><td>${esc(i.source_name||'-')}</td></tr>`).join('')
+    : '<tr><td colspan="4" class="empty">Item geçmişi yok</td></tr>';
+
+  document.getElementById('t-ac2-body').innerHTML = (d.ac||[]).length
+    ? (d.ac||[]).map(a=>`<tr><td>${esc(a.module||'-')}</td><td>${esc(a.info||'-')}</td><td style="color:var(--warning)">${a.risk||0}</td><td>${esc(a.action||'-')}</td><td>${fmtDate(a.created_at)}</td></tr>`).join('')
+    : '<tr><td colspan="5" class="empty">AC kaydı yok</td></tr>';
+};
+
+// ---- BANS ----
+function renderBans() {
+  document.getElementById('ban-body').innerHTML = (panelData.bans||[]).map(b=>`
+    <tr>
+      <td>${b.id}</td>
+      <td>${esc(b.player_name)}</td>
+      <td>${esc(b.admin_name)}</td>
+      <td>${esc(b.reason)}</td>
+      <td>${b.expires_at===0?'Süresiz':fmtDate(b.expires_at)}</td>
+      <td><button class="btn btn-danger" style="display:inline;width:auto;padding:3px 10px;" onclick="mtaCall('unban',{id:${b.id}})">Kaldır</button></td>
+    </tr>`).join('') || '<tr><td colspan="6" class="empty">Ban kaydı yok</td></tr>';
+}
+function renderReports() {
+  document.getElementById('report-body').innerHTML = (panelData.reports||[]).map(r=>`
+    <tr>
+      <td>${r.id}</td>
+      <td>${esc(r.player_name)}</td>
+      <td>${esc(r.reason)}</td>
+      <td>${esc(r.status)}</td>
+      <td>
+        <button class="btn btn-primary" style="display:inline;width:auto;padding:3px 8px;margin-right:4px;" onclick="mtaCall('reportAction',{type:'claim',id:${r.id}})">Üstlen</button>
+        <button class="btn btn-danger"  style="display:inline;width:auto;padding:3px 8px;" onclick="mtaCall('reportAction',{type:'close',id:${r.id},note:''})">Kapat</button>
+      </td>
+    </tr>`).join('') || '<tr><td colspan="5" class="empty">Açık rapor yok</td></tr>';
+}
+function renderLogs() {
+  document.getElementById('log-body').innerHTML = (panelData.logs||[]).map(l=>`
+    <tr>
+      <td>${esc(l.admin_name)}</td>
+      <td>${esc(l.target_name)}</td>
+      <td>${esc(l.action)}</td>
+      <td>${esc(l.details||'-')}</td>
+      <td>${fmtDate(l.created_at)}</td>
+    </tr>`).join('') || '<tr><td colspan="5" class="empty">Log yok</td></tr>';
+}
+
+
+// Script ve Kaynak Yönetimi
+let serverResources = [];
+window.updateResources = function(resList) {
+  serverResources = resList || [];
+  renderResources();
+};
+
+function renderResources() {
+  const tbody = document.getElementById("res-tbody");
+  if (!tbody) return;
+  const q = (document.getElementById("res-search")?.value || "").toLowerCase();
+  const list = serverResources.filter(r => !q || r.name.toLowerCase().includes(q));
+  if (list.length === 0) {
+    tbody.innerHTML = "<tr><td colspan='3' class='empty'>Script bulunamadı</td></tr>";
+    return;
+  }
+  tbody.innerHTML = list.map(r => {
+    const isRunning = r.state === "running";
+    const badge = isRunning ? `<span class="badge online">Çalışıyor</span>` : `<span class="badge offline">${r.state}</span>`;
+    return `<tr>
+      <td style="font-weight:600;">${esc(r.name)}</td>
+      <td>${badge}</td>
+      <td>
+        <div style="display:flex;gap:6px;">
+          ${isRunning ? 
+            `<button class="btn btn-warning" style="padding:4px 8px;font-size:11px;" onclick="manageRes('restart','${esc(r.name)}')">Yeniden Başlat</button>
+             <button class="btn btn-danger" style="padding:4px 8px;font-size:11px;" onclick="manageRes('stop','${esc(r.name)}')">Durdur</button>` :
+            `<button class="btn btn-success" style="padding:4px 8px;font-size:11px;" onclick="manageRes('start','${esc(r.name)}')">Başlat</button>`
+          }
+        </div>
+      </td>
+    </tr>`;
+  }).join("");
+}
+function filterResources(q) { renderResources(); }
+function manageRes(act, name) {
+  mtaCall("manageResource", { resAction: act, resName: name });
+}
+
+function giveItemToPlayer() {
+  const item = document.getElementById("in-item-name").value;
+  const count = document.getElementById("in-item-count").value;
+  if (!item) { alert("İtem adı veya ID girin."); return; }
+  mtaCall("giveitem", { player: selectedPlayer || "", item: item, amount: count });
+}
+
+function giveRankToPlayer() {
+  const rank = document.getElementById("in-rank-select").value;
+  mtaCall("temprank", { player: selectedPlayer || "", rank: rank });
+}
+
+function removeRankFromPlayer() {
+  mtaCall("removerank", { player: selectedPlayer || "" });
+}
+
+function submitNewEvent() {
+  const name = document.getElementById("in-evt-name").value;
+  const desc = document.getElementById("in-evt-desc").value;
+  const reward = document.getElementById("in-evt-reward").value;
+  const dur = document.getElementById("in-evt-dur").value;
+  if (!name) { alert("Etkinlik adı boş olamaz."); return; }
+  mtaCall("createEvent", { name: name, desc: desc, reward: reward, duration: dur });
+  document.getElementById("in-evt-name").value = "";
+  document.getElementById("in-evt-desc").value = "";
+  document.getElementById("in-evt-reward").value = "";
+}
+
+// ---- ACTIONS ----
+function act(action) {
+  mtaCall(action, { subaction: action, player: selectedPlayer || '' });
+}
+function actVal(action, inputId) {
+  mtaCall(action, { subaction: action, player: selectedPlayer || '', value: document.getElementById(inputId).value });
+}
+function banPlayer() {
+  mtaCall('action', {
+    action: 'ban',
+    player: selectedPlayer || '',
+    reason: document.getElementById('in-ban-reason').value,
+    duration: document.getElementById('in-ban-dur').value
+  });
+}
+function closePanel() { mtaCall('close'); }
+</script>
+<!-- ── TOAST BİLDİRİM SİSTEMİ (sa.html'den) ── -->
+<div id="toast-container" style="position:fixed;top:16px;right:16px;z-index:99999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:320px"></div>
+<style>
+.toast-card{width:320px;min-height:64px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.06);animation:tIn .3s cubic-bezier(.16,1,.3,1) forwards;box-shadow:0 10px 25px -5px rgba(0,0,0,.6)}
+@keyframes tIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+.t-success{background:linear-gradient(108deg,rgba(20,52,32,.92) 0%,rgba(22,58,35,.92) 58%,rgba(20,23,28,.96) 58.2%,rgba(16,18,22,.98) 100%);border-left:1px solid rgba(46,204,113,.3)}
+.t-info{background:linear-gradient(108deg,rgba(16,52,64,.92) 0%,rgba(18,58,72,.92) 58%,rgba(20,23,28,.96) 58.2%,rgba(16,18,22,.98) 100%);border-left:1px solid rgba(0,188,212,.3)}
+.t-warning{background:linear-gradient(108deg,rgba(64,50,16,.92) 0%,rgba(72,56,18,.92) 58%,rgba(20,23,28,.96) 58.2%,rgba(16,18,22,.98) 100%);border-left:1px solid rgba(241,196,15,.3)}
+.t-error{background:linear-gradient(108deg,rgba(62,22,26,.92) 0%,rgba(70,24,29,.92) 58%,rgba(20,23,28,.96) 58.2%,rgba(16,18,22,.98) 100%);border-left:1px solid rgba(231,76,60,.3)}
+.t-inner{padding:10px 12px 10px 14px;display:flex;align-items:center;gap:10px}
+.t-hex{position:relative;width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.t-hex svg{width:100%;height:100%}.t-hex .ti{position:absolute;width:13px;height:13px}
+.t-body{flex:1;min-width:0}.t-title{font-size:13px;font-weight:500;line-height:1.1}.t-msg{font-size:11.5px;color:#bdc3c7;margin-top:2px;line-height:1.35}
+.t-badge{position:relative;width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.t-badge svg{width:100%;height:100%;position:absolute}.t-badge span{font-size:10px;font-weight:700;position:relative}
+.cs{color:#2ecc71}.ci{color:#00bcd4}.cw{color:#f1c40f}.ce{color:#e74c3c}
+</style>
+<script>
+(function(){
+var icons={
+  success:'<polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>',
+  info:'<line x1="12" y1="16" x2="12" y2="11" stroke-linecap="round" stroke-width="3"/><circle cx="12" cy="8" r="1.2" fill="currentColor"/>',
+  warning:'<line x1="12" y1="8" x2="12" y2="13" stroke-linecap="round" stroke-width="3"/><circle cx="12" cy="16.5" r="1.2" fill="currentColor"/>',
+  error:'<line x1="18" y1="6" x2="6" y2="18" stroke-linecap="round" stroke-width="3"/><line x1="6" y1="6" x2="18" y2="18" stroke-linecap="round" stroke-width="3"/>'
+};
+var cls={success:'cs',info:'ci',warning:'cw',error:'ce'};
+window.mtaNotify=function(title,message,type,badge){
+  type=type||'info'; var cc=cls[type]||'ci';
+  var c=document.getElementById('toast-container');
+  var el=document.createElement('div');
+  el.className='toast-card t-'+(type);
+  el.innerHTML='<div class="t-inner">'
+    +'<div class="t-hex">'
+      +'<svg viewBox="0 0 100 100" class="'+cc+'" stroke="currentColor" stroke-width="8" fill="none"><polygon points="50 4,93 25,93 75,50 96,7 75,7 25"/></svg>'
+      +'<svg viewBox="0 0 24 24" class="ti '+cc+'" fill="none" stroke="currentColor">'+(icons[type]||icons.info)+'</svg>'
+    +'</div>'
+    +'<div class="t-body">'
+      +'<div class="t-title '+cc+'">'+(title||'')+'</div>'
+      +(message?'<div class="t-msg">'+(message||'')+'</div>':'')
+    +'</div>'
+    +(badge?'<div class="t-badge"><svg viewBox="0 0 100 100" class="'+cc+'" stroke="currentColor" stroke-width="6" fill="rgba(255,255,255,.03)"><polygon points="50 4,93 25,93 75,50 96,7 75,7 25"/></svg><span class="'+cc+'">'+badge+'</span></div>':'')
+  +'</div>';
+  c.insertBefore(el,c.firstChild);
+  setTimeout(function(){
+    el.style.transition='opacity .25s,transform .25s';
+    el.style.opacity='0';el.style.transform='translateX(40px)';
+    setTimeout(function(){el.remove();},280);
+  },4500);
+  while(c.children.length>5)c.removeChild(c.lastChild);
+};
+})();
+</script>
+</body>
+</html>

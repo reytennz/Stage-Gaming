@@ -1,0 +1,23 @@
+STAGE GAMING - PARA / BANKA HUD ENTEGRASYONU
+
+- Referans para paneli tum HUD seceneklerinde ortak olarak cizilir.
+- Nakit: stage_economy'nin setPlayerMoney ile senkronladigi MTA bakiyesi.
+- Banka: bankmoney element datasindan okunur.
+- stage_loading karakter seciminde bankmoney artik 0'a sifirlanmaz.
+- FiveHUD icindeki eski nakit satiri kaldirildi; para iki kez gorunmez.
+
+BANKA ENTEGRASYONU:
+STAGE_ECONOMY_BANK_INTEGRATION.lua, paylastigin stage_economy/server.lua kodunun
+banka bakiyesi kalici olacak sekilde genisletilmis ornek surumudur. Banka yatirma/
+cekme islemleri GetBank/SetBank/AddBank/RemoveBank fonksiyonlarini kullanmali.
+Bu dosyayi stage_economy resource'unda server.lua ile birlestir; var olan
+stage_core DB exportlari korunmustur. stage_economy meta.xml icinde su exportlari
+server tarafi icin tanimla:
+  <export function="GetBank" type="server" />
+  <export function="SetBank" type="server" />
+  <export function="AddBank" type="server" />
+  <export function="RemoveBank" type="server" />
+
+NOT: Banka daha once baska tabloda tutuluyorsa, eski bakiyeleri economy_accounts.bank
+alanina tasimadan bu ornekle degistirme. Serial bazli bakiye, karakter slotlarindan
+bagimsizdir. Kurulumdan once veritabani yedegi al.

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Arial,sans-serif}
+  body{background:transparent;color:#f0f2f5;overflow:hidden}
+  .panel{background:#0e1016ee;border-left:4px solid #10b96e;border-radius:10px;padding:0;box-shadow:0 12px 40px #000a;max-width:420px;margin:40px auto}
+  .head{background:#141822;padding:16px 20px;border-radius:10px 10px 0 0}
+  .head h1{font-size:18px;font-weight:700}
+  .head p{font-size:12px;color:#8b93a7;margin-top:4px}
+  .body{padding:18px 20px 22px}
+  .row{margin-bottom:12px}
+  .label{font-size:12px;color:#8b93a7;margin-bottom:4px}
+  .value{font-size:22px;font-weight:700;color:#10b96e}
+  .value.dim{font-size:14px;color:#c5cad6;font-weight:500}
+  .hint{font-size:12px;color:#fbbf24;margin:10px 0}
+  .muted{font-size:11px;color:#6b7280}
+  .btns{display:flex;gap:10px;margin-top:16px}
+  button{flex:1;border:0;border-radius:8px;padding:12px;font-weight:700;cursor:pointer;font-size:14px}
+  .primary{background:#10b96e;color:#fff}
+  .primary:hover{background:#22d282}
+  .ghost{background:#252b38;color:#e5e7eb}
+  input{width:100%;padding:11px 12px;border-radius:8px;border:1px solid #2a3140;background:#1a1f2a;color:#fff;font-size:15px;outline:none}
+  input:focus{border-color:#10b96e}
+  .codebox{background:#1a1f2a;border-radius:8px;padding:14px;text-align:center;font-size:28px;font-weight:800;color:#10b96e;letter-spacing:2px;margin:8px 0}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div id="buy" class="panel hidden">
+  <div class="head"><h1>SATILIK BENZİNLİK</h1><p id="buy-name">—</p></div>
+  <div class="body">
+    <div class="row"><div class="label">Satış fiyatı</div><div class="value" id="buy-price">$0</div></div>
+    <div class="hint">Satın alınca bu işletmeye özel giriş kodu oluşur.</div>
+    <div class="muted">Sadece bu benzinlik yönetilir.</div>
+    <div class="btns">
+      <button class="primary" onclick="mtaBuy()">SATIN AL</button>
+      <button class="ghost" onclick="mtaClose()">KAPAT</button>
+    </div>
+  </div>
+</div>
+<div id="success" class="panel hidden">
+  <div class="head"><h1>✓ SATIN ALINDI</h1><p id="ok-name">—</p></div>
+  <div class="body">
+    <div class="label">İşletme kodun</div>
+    <div class="codebox" id="ok-code">12345</div>
+    <div class="hint">Kodu sakla · Benzinlikte yazarak paneli aç</div>
+    <div class="muted" id="ok-price"></div>
+    <div class="btns"><button class="primary" onclick="mtaClose()">TAMAM</button></div>
+  </div>
+</div>
+<div id="code" class="panel hidden">
+  <div class="head"><h1>İŞLETME PANELİ</h1><p id="code-name">—</p></div>
+  <div class="body">
+    <div class="label">Giriş kodu</div>
+    <input id="code-input" placeholder="örn. 12345" maxlength="12"/>
+    <div class="btns">
+      <button class="primary" onclick="mtaOpen()">PANELİ AÇ</button>
+      <button class="ghost" onclick="mtaClose()">KAPAT</button>
+    </div>
+  </div>
+</div>
+<script>
+function hideAll(){['buy','success','code'].forEach(id=>document.getElementById(id).classList.add('hidden'))}
+function showBuy(d){hideAll();document.getElementById('buy').classList.remove('hidden');
+  document.getElementById('buy-name').textContent=d.name||'Benzinlik';
+  document.getElementById('buy-price').textContent=d.priceText||('$'+d.price);
+  window._sid=d.id}
+function showSuccess(d){hideAll();document.getElementById('success').classList.remove('hidden');
+  document.getElementById('ok-name').textContent=d.name||'';
+  document.getElementById('ok-code').textContent=d.code||'';
+  document.getElementById('ok-price').textContent=d.priceText?('Ödenen: '+d.priceText):''}
+function showCode(d){hideAll();document.getElementById('code').classList.remove('hidden');
+  document.getElementById('code-name').textContent=d.name||'Benzinlik';
+  document.getElementById('code-input').value='';window._sid=d.id}
+function mtaBuy(){if(window.mta&&mta.triggerEvent)mta.triggerEvent('html:buy',window._sid)}
+function mtaOpen(){var c=document.getElementById('code-input').value;if(window.mta&&mta.triggerEvent)mta.triggerEvent('html:openCode',c)}
+function mtaClose(){if(window.mta&&mta.triggerEvent)mta.triggerEvent('html:close')}
+window.showBuy=showBuy;window.showSuccess=showSuccess;window.showCode=showCode;window.hideAll=hideAll;
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<settings>
+    <eventSpam enabled="1"></eventSpam>
+    <teleport enabled="1"></teleport>
+    <vehicleFly enabled="1"></vehicleFly>
+    <armor enabled="1"></armor>
+    <illegalWeapon enabled="1"></illegalWeapon>
+    <fly enabled="1"></fly>
+    <health enabled="1"></health>
+    <rapidFire enabled="1"></rapidFire>
+    <speed enabled="1"></speed>
+    <superjump enabled="1"></superjump>
+    <illegalVehicle enabled="1"></illegalVehicle>
+    <damage enabled="1"></damage>
+</settings>

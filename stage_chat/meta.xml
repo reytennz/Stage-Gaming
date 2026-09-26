@@ -1,0 +1,24 @@
+<meta>
+  <info name="stage_chat" type="script" version="1.2.0" author="Stage Gaming" description="Stage Chat (chat2 tabanli)" />
+  <min_mta_version server="1.5.8" client="1.5.8" />
+
+  <script src="shared.lua" type="shared" />
+  <script src="server.lua" type="server" />
+  <script src="client.lua" type="client" />
+
+  <file src="index.html" />
+  <file src="styles.css" />
+  <file src="scripts.js" />
+  <file src="sounds/typing.mp3" />
+
+  <export function="isChatVisible" type="client" />
+  <export function="useDefaultOutput" type="server" />
+  <export function="output" type="server" />
+  <export function="clear" type="server" />
+  <export function="show" type="server" />
+  <aclrequest>
+    <right name="function.executeCommandHandler" access="true" />
+    <right name="general.ModifyOtherObjects" access="true" />
+  </aclrequest>
+</meta>
+

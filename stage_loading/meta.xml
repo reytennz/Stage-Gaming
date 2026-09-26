@@ -1,0 +1,297 @@
+<meta>
+    <info author="Stage" name="Stage Loading + Account + Characters MySQL" version="4.0" type="script" />
+    <script src="config.lua" type="server"/>
+    <script src="server.lua" type="server"/>
+    <script src="client_config.lua" type="client" cache="false"/>
+    <script src="hud_dx.lua" type="client" cache="false"/>
+    <script src="hud_styles.lua" type="client" cache="false"/>
+    <script src="client.lua" type="client" cache="false"/>
+    <file src="html/index.html"/>
+    <file src="html/chars.html"/>
+    <file src="html/menu.html"/>
+    <file src="css/style.css"/>
+    <file src="css/chars.css"/>
+    <file src="css/menu.css"/>
+    <file src="js/script.js"/>
+    <file src="js/chars.js"/>
+    <file src="js/menu.js"/>
+    <file src="assets/video.mp4"/>
+    <file src="assets/music.mp3"/>
+    <file src="assets/logo.png"/>
+    <file src="assets/sf_logo.png"/>
+    <file src="assets/music_cover.png"/>
+    <file src="assets/icon_ss.png"/>
+    <file src="assets/icon_mic.png"/>
+    <file src="assets/icon_write.png"/>
+    <file src="assets/icon_ribbon.png"/>
+    <file src="assets/hud/img/bag.png"/>
+    <file src="assets/hud/img/bankmoney.png"/>
+    <file src="assets/hud/img/clock.png"/>
+    <file src="assets/hud/img/infinity.png"/>
+    <file src="assets/hud/img/money.png"/>
+    <file src="assets/hud/img/player.png"/>
+    <file src="assets/hud/img/user.png"/>
+    <file src="assets/hud/fonts/Roboto.ttf"/>
+    <file src="assets/hud/fonts/FontAwesome.ttf"/>
+    <file src="assets/hud/fonts/Poppins-Regular.ttf"/>
+    <file src="assets/hud/fonts/Poppins-Bold.ttf"/>
+    <file src="assets/hud/fonts/BebasNeue-Regular.ttf"/>
+    <file src="assets/hud/image/logo.png"/>
+    <file src="assets/hud/image/siyah.png"/>
+    <file src="assets/hud/image/fuel.png"/>
+    <file src="assets/hud/image/door.png"/>
+    <file src="assets/hud/image/engine.png"/>
+    <file src="assets/hud/speedo/Spedo.png"/>
+    <file src="assets/hud/speedo/strelkaspedo.png"/>
+    <file src="assets/hud/speedo/strelkabenz.png"/>
+    <file src="assets/hud/speedo/benz.png"/>
+    <file src="assets/hud/speedo/benz2.png"/>
+    <file src="assets/hud/speedo/engine.png"/>
+    <file src="assets/hud/speedo/krug.png"/>
+    <file src="assets/hud/speedo/kruiz.png"/>
+    <file src="assets/hud/speedo/light.png"/>
+    <file src="assets/hud/speedo/lock.png"/>
+    <file src="assets/hud/speedo/AEROMATICSBOLD.ttf"/>
+    <file src="assets/hud/speedo/AEROMATICSBOLDITALIC.ttf"/>
+    <file src="assets/hud/speedo/AEROMATICSITALIC.ttf"/>
+    <file src="assets/hud/five/hud.png"/>
+    <file src="assets/hud/five/hud_1.png"/>
+    <file src="assets/hud/five/hud_2.png"/>
+    <file src="assets/hud/five/star.png"/>
+    <file src="assets/hud/five/font1.ttf"/>
+    <file src="assets/hud/five/font2.ttf"/>
+    <export function="stageSetMoney" type="server"/>
+    <export function="stageGiveMoney" type="server"/>
+    <export function="stageGetMoney" type="server"/>
+    <export function="stageGetDatabase" type="server"/>
+    <export function="stageResetStats" type="server"/>
+    <export function="stageGetBank" type="server"/>
+    <export function="stageSetBank" type="server"/>
+    <export function="stageAddBank" type="server"/>
+    <export function="stageRemoveBank" type="server"/>
+
+    <file src="assets/hud/speedo2/base-circle.png"/>
+    <file src="assets/hud/speedo2/gas.png"/>
+    <file src="assets/hud/speedo2/door.png"/>
+    <file src="assets/hud/speedo2/engine.png"/>
+    <file src="assets/hud/speedo2/belt.png"/>
+    <file src="assets/hud/speedo2/light_vehicle.png"/>
+    <file src="assets/hud/speedo2/injection_light.png"/>
+    <file src="assets/hud/speedo2/status.png"/>
+    <file src="assets/hud/speedo2/loc.png"/>
+    <file src="assets/hud/speedo2/info.png"/>
+    <file src="assets/hud/speedo2/hunger.png"/>
+    <file src="assets/hud/speedo2/water.png"/>
+    <file src="assets/hud/speedo2/stress.png"/>
+    <file src="assets/hud/speedo2/armor.png"/>
+    <file src="assets/hud/speedo2/fonts/Inter-Regular.ttf"/>
+    <file src="assets/hud/speedo2/fonts/Inter-SemiBold.ttf"/>
+    <file src="assets/hud/speedo2/fonts/Inter-Medium.ttf"/>
+    <file src="assets/hud/speedo2/fonts/Roboto-Medium.ttf"/>
+    <export function="StageHudSetOption" type="client"/>
+    <export function="StageHudGetOptions" type="client"/>
+    <!-- ==== RADAR / F11 HARITA ==== -->
+    <script src="radar/radar_config.lua" type="client" cache="false"/>
+    <script src="radar/sourceC.lua" type="client" cache="false"/>
+    <script src="radar/gps/sourceC.lua" type="client" cache="false"/>
+    <script src="radar/gps/vehiclenodes.lua" type="client"/>
+    <file src="files/Roboto.ttf" type="client"/>
+    <file src="files/RobotoB.ttf" type="client"/>
+    <file src="files/fontawesome-webfont.ttf" type="client"/>
+    <file src="files/fontawesome2.otf" type="client"/>
+    <file src="files/gtaFont.ttf" type="client"/>
+    <file src="files/hand.ttf" type="client"/>
+    <file src="files/shader.fx" type="client"/>
+    <file src="radar/files/arrow.png" type="client"/>
+    <file src="radar/files/blips/0.png" type="client"/>
+    <file src="radar/files/blips/1.png" type="client"/>
+    <file src="radar/files/blips/10.png" type="client"/>
+    <file src="radar/files/blips/11.png" type="client"/>
+    <file src="radar/files/blips/12.png" type="client"/>
+    <file src="radar/files/blips/13.png" type="client"/>
+    <file src="radar/files/blips/14.png" type="client"/>
+    <file src="radar/files/blips/15.png" type="client"/>
+    <file src="radar/files/blips/16.png" type="client"/>
+    <file src="radar/files/blips/17.png" type="client"/>
+    <file src="radar/files/blips/18.png" type="client"/>
+    <file src="radar/files/blips/19.png" type="client"/>
+    <file src="radar/files/blips/2.png" type="client"/>
+    <file src="radar/files/blips/20.png" type="client"/>
+    <file src="radar/files/blips/21.png" type="client"/>
+    <file src="radar/files/blips/3.png" type="client"/>
+    <file src="radar/files/blips/4.png" type="client"/>
+    <file src="radar/files/blips/45.png" type="client"/>
+    <file src="radar/files/blips/5.png" type="client"/>
+    <file src="radar/files/blips/6.png" type="client"/>
+    <file src="radar/files/blips/7.png" type="client"/>
+    <file src="radar/files/blips/8.png" type="client"/>
+    <file src="radar/files/blips/9.png" type="client"/>
+    <file src="radar/files/blips/air_repair.png" type="client"/>
+    <file src="radar/files/blips/airport.png" type="client"/>
+    <file src="radar/files/blips/arrow.png" type="client"/>
+    <file src="radar/files/blips/autosiskola.png" type="client"/>
+    <file src="radar/files/blips/bank.png" type="client"/>
+    <file src="radar/files/blips/banya.png" type="client"/>
+    <file src="radar/files/blips/binco.png" type="client"/>
+    <file src="radar/files/blips/boat.png" type="client"/>
+    <file src="radar/files/blips/boat_repair.png" type="client"/>
+    <file src="radar/files/blips/boat_shop.png" type="client"/>
+    <file src="radar/files/blips/border_crossing.png" type="client"/>
+    <file src="radar/files/blips/burger.png" type="client"/>
+    <file src="radar/files/blips/car_destroyer.png" type="client"/>
+    <file src="radar/files/blips/car_repair.png" type="client"/>
+    <file src="radar/files/blips/car_shop.png" type="client"/>
+    <file src="radar/files/blips/car_wash.png" type="client"/>
+    <file src="radar/files/blips/carrent.png" type="client"/>
+    <file src="radar/files/blips/carshop.png" type="client"/>
+    <file src="radar/files/blips/casino.png" type="client"/>
+    <file src="radar/files/blips/cb.png" type="client"/>
+    <file src="radar/files/blips/cblip.png" type="client"/>
+    <file src="radar/files/blips/cel.png" type="client"/>
+    <file src="radar/files/blips/change.png" type="client"/>
+    <file src="radar/files/blips/cinema.png" type="client"/>
+    <file src="radar/files/blips/city_hall.png" type="client"/>
+    <file src="radar/files/blips/close.png" type="client"/>
+    <file src="radar/files/blips/clothes_shop.png" type="client"/>
+    <file src="radar/files/blips/club.png" type="client"/>
+    <file src="radar/files/blips/crab.png" type="client"/>
+    <file src="radar/files/blips/disco.png" type="client"/>
+    <file src="radar/files/blips/driving_license.png" type="client"/>
+    <file src="radar/files/blips/favago.png" type="client"/>
+    <file src="radar/files/blips/fisherman.png" type="client"/>
+    <file src="radar/files/blips/fuel.png" type="client"/>
+    <file src="radar/files/blips/furniture_shop.png" type="client"/>
+    <file src="radar/files/blips/gas_station.png" type="client"/>
+    <file src="radar/files/blips/golf.png" type="client"/>
+    <file src="radar/files/blips/gyar.png" type="client"/>
+    <file src="radar/files/blips/gym.png" type="client"/>
+    <file src="radar/files/blips/hatar.png" type="client"/>
+    <file src="radar/files/blips/hospital.png" type="client"/>
+    <file src="radar/files/blips/house.png" type="client"/>
+    <file src="radar/files/blips/hunting.png" type="client"/>
+    <file src="radar/files/blips/hunting2.png" type="client"/>
+    <file src="radar/files/blips/hunting_down.png" type="client"/>
+    <file src="radar/files/blips/hunting_ground.png" type="client"/>
+    <file src="radar/files/blips/job.png" type="client"/>
+    <file src="radar/files/blips/job_vehicle.png" type="client"/>
+    <file src="radar/files/blips/junkyard.png" type="client"/>
+    <file src="radar/files/blips/kek.png" type="client"/>
+    <file src="radar/files/blips/kikoto.png" type="client"/>
+    <file src="radar/files/blips/kocsma.png" type="client"/>
+    <file src="radar/files/blips/korhaz.png" type="client"/>
+    <file src="radar/files/blips/kosar.png" type="client"/>
+    <file src="radar/files/blips/kukamunka.png" type="client"/>
+    <file src="radar/files/blips/loter.png" type="client"/>
+    <file src="radar/files/blips/lottoblip.png" type="client"/>
+    <file src="radar/files/blips/mark.png" type="client"/>
+    <file src="radar/files/blips/mark_1.png" type="client"/>
+    <file src="radar/files/blips/mark_2.png" type="client"/>
+    <file src="radar/files/blips/mark_3.png" type="client"/>
+    <file src="radar/files/blips/mark_4.png" type="client"/>
+    <file src="radar/files/blips/markblip.png" type="client"/>
+    <file src="radar/files/blips/markblip2.png" type="client"/>
+    <file src="radar/files/blips/motel.png" type="client"/>
+    <file src="radar/files/blips/munkajarmu.png" type="client"/>
+    <file src="radar/files/blips/north.png" type="client"/>
+    <file src="radar/files/blips/oduncu.png" type="client"/>
+    <file src="radar/files/blips/pd.png" type="client"/>
+    <file src="radar/files/blips/pd.png.png" type="client"/>
+    <file src="radar/files/blips/pet_shop.png" type="client"/>
+    <file src="radar/files/blips/piros.png" type="client"/>
+    <file src="radar/files/blips/player.png" type="client"/>
+    <file src="radar/files/blips/plaza.png" type="client"/>
+    <file src="radar/files/blips/police_hq.png" type="client"/>
+    <file src="radar/files/blips/port.png" type="client"/>
+    <file src="radar/files/blips/portakal.png" type="client"/>
+    <file src="radar/files/blips/racingtrack.png" type="client"/>
+    <file src="radar/files/blips/repter.png" type="client"/>
+    <file src="radar/files/blips/sarga.png" type="client"/>
+    <file src="radar/files/blips/sheriffblip.png" type="client"/>
+    <file src="radar/files/blips/shop.png" type="client"/>
+    <file src="radar/files/blips/shop_h.png" type="client"/>
+    <file src="radar/files/blips/shopping_mall.png" type="client"/>
+    <file src="radar/files/blips/szerelo.png" type="client"/>
+    <file src="radar/files/blips/szerelo_boat.png" type="client"/>
+    <file src="radar/files/blips/szerelo_heli.png" type="client"/>
+    <file src="radar/files/blips/target.png" type="client"/>
+    <file src="radar/files/blips/taxi.png" type="client"/>
+    <file src="radar/files/blips/templom.png" type="client"/>
+    <file src="radar/files/blips/tuning.png" type="client"/>
+    <file src="radar/files/blips/tuning_workshop.png" type="client"/>
+    <file src="radar/files/blips/vehicle.png" type="client"/>
+    <file src="radar/files/blips/versenypalya.png" type="client"/>
+    <file src="radar/files/blips/vh.png" type="client"/>
+    <file src="radar/files/blips/weapon_shop.png" type="client"/>
+    <file src="radar/files/blips/zold.png" type="client"/>
+    <file src="radar/files/cross.png" type="client"/>
+    <file src="radar/files/f11radarclose.mp3" type="client"/>
+    <file src="radar/files/f11radaropen.mp3" type="client"/>
+    <file src="radar/files/gpslosticon.png" type="client"/>
+    <file src="radar/files/gpslosttext.png" type="client"/>
+    <file src="radar/files/jobblips/247.png" type="client"/>
+    <file src="radar/files/jobblips/abc.png" type="client"/>
+    <file src="radar/files/jobblips/bb.png" type="client"/>
+    <file src="radar/files/jobblips/burger.png" type="client"/>
+    <file src="radar/files/jobblips/carshop.png" type="client"/>
+    <file src="radar/files/jobblips/cluckin.png" type="client"/>
+    <file src="radar/files/jobblips/clucking.png" type="client"/>
+    <file src="radar/files/jobblips/donut.png" type="client"/>
+    <file src="radar/files/jobblips/electro.png" type="client"/>
+    <file src="radar/files/jobblips/fcbbq.png" type="client"/>
+    <file src="radar/files/jobblips/fch.png" type="client"/>
+    <file src="radar/files/jobblips/fix.png" type="client"/>
+    <file src="radar/files/jobblips/fruit.png" type="client"/>
+    <file src="radar/files/jobblips/gasso.png" type="client"/>
+    <file src="radar/files/jobblips/hobby.png" type="client"/>
+    <file src="radar/files/jobblips/jefferson.png" type="client"/>
+    <file src="radar/files/jobblips/ls.png" type="client"/>
+    <file src="radar/files/jobblips/lvh.png" type="client"/>
+    <file src="radar/files/jobblips/lvoil.png" type="client"/>
+    <file src="radar/files/jobblips/oil.png" type="client"/>
+    <file src="radar/files/jobblips/rockshore.png" type="client"/>
+    <file src="radar/files/jobblips/seeburger.png" type="client"/>
+    <file src="radar/files/jobblips/sf.png" type="client"/>
+    <file src="radar/files/jobblips/sh.png" type="client"/>
+    <file src="radar/files/jobblips/warehouse.png" type="client"/>
+    <file src="radar/files/jobblips/wh.png" type="client"/>
+    <file src="radar/files/jobblips/xoomer.png" type="client"/>
+    <file src="radar/files/jobblips/zoldseges.png" type="client"/>
+    <file src="radar/files/map.png" type="client"/>
+    <file src="radar/files/map2.png" type="client"/>
+    <file src="radar/files/nosignaltext.png" type="client"/>
+    <file src="radar/files/pd.png" type="client"/>
+    <file src="radar/files/radar.jpg" type="client"/>
+    <file src="radar/files/tick.png" type="client"/>
+    <file src="radar/files/tick_on.png" type="client"/>
+    <file src="radar/gps/images/around.png" type="client"/>
+    <file src="radar/gps/images/circlein.png" type="client"/>
+    <file src="radar/gps/images/circleout.png" type="client"/>
+    <file src="radar/gps/images/dot.png" type="client"/>
+    <file src="radar/gps/images/end.png" type="client"/>
+    <file src="radar/gps/images/finish.png" type="client"/>
+    <file src="radar/gps/images/forward.png" type="client"/>
+    <file src="radar/gps/images/left.png" type="client"/>
+    <file src="radar/gps/images/refresh.png" type="client"/>
+    <file src="radar/gps/images/right.png" type="client"/>
+    <file src="radar/gps/images/sgo.png" type="client"/>
+    <file src="radar/gps/sounds/1/200.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/50.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/500.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/balra.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/ding.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/egyenes.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/erkezes.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/finish.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/fordulj.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/forduljvissza.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/gpslost.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/hello.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/jobbra.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/kilometert.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/masikuticel.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/metert.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/nincskapcs.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/ujratervezes.mp3" type="client"/>
+    <file src="radar/gps/sounds/1/uticel.mp3" type="client"/>
+    <export function="createCustomBlip" type="client"/>
+</meta>

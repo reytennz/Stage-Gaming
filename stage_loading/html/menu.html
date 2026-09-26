@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage Menu</title>
+    <link rel="stylesheet" href="http://mta/local/css/menu.css">
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="menu-wrap">
+        <div class="menu-header">
+            <h1>STAGE</h1>
+            <p>Ana Menü · F10</p>
+        </div>
+
+        <div class="menu-buttons" id="mainButtons">
+            <button class="menu-btn" onclick="openChars()">
+                <span class="btn-icon">👤</span>
+                <span class="btn-text">Karakter Değiştir</span>
+            </button>
+            <button class="menu-btn" onclick="openSettings()">
+                <span class="btn-icon">⚙️</span>
+                <span class="btn-text">Ayarlar</span>
+            </button>
+            <button class="menu-btn secondary" onclick="closeMenu()">
+                <span class="btn-icon">✕</span>
+                <span class="btn-text">Kapat</span>
+            </button>
+        </div>
+
+        <div class="settings-panel hidden" id="settingsPanel">
+            <h2>Ayarlar</h2>
+            <p class="sub">HUD · Speedo · Font · Crosshair</p>
+
+            <div class="section-title">HUD Stili</div>
+            <div class="option-grid" id="hudOptions">
+                <div class="option-card active" data-hud="1" onclick="selectHud(1)">
+                    <div class="opt-preview hud-preview-1"></div>
+                    <div class="opt-name">STAGE Üst Bar</div>
+                </div>
+                <div class="option-card" data-hud="2" onclick="selectHud(2)">
+                    <div class="opt-preview hud-preview-2"></div>
+                    <div class="opt-name">Infinity Kart</div>
+                </div>
+                <div class="option-card" data-hud="3" onclick="selectHud(3)">
+                    <div class="opt-preview hud-preview-3"></div>
+                    <div class="opt-name">FiveHUD</div>
+                </div>
+            </div>
+
+            <div class="section-title">Speedometer</div>
+            <div class="option-grid" id="speedoOptions">
+                <div class="option-card active" data-speedo="1" onclick="selectSpeedo(1)">
+                    <div class="opt-preview speedo-preview-1"></div>
+                    <div class="opt-name">Modern (Decro)</div>
+                </div>
+                <div class="option-card" data-speedo="2" onclick="selectSpeedo(2)">
+                    <div class="opt-preview speedo-preview-2"></div>
+                    <div class="opt-name">Hiigor Circle</div>
+                </div>
+                <div class="option-card" data-speedo="3" onclick="selectSpeedo(3)">
+                    <div class="opt-preview speedo-preview-3"></div>
+                    <div class="opt-name">Stage Digital</div>
+                </div>
+            </div>
+
+            <div class="section-title">Yazı Fontu</div>
+            <div class="option-grid" id="fontOptions">
+                <div class="option-card active" data-font="1" onclick="selectFont(1)">
+                    <div class="opt-name" style="font-weight:700">XBold · Kalın</div>
+                </div>
+                <div class="option-card" data-font="2" onclick="selectFont(2)">
+                    <div class="opt-name" style="font-weight:300">Poppins Regular</div>
+                </div>
+                <div class="option-card" data-font="3" onclick="selectFont(3)">
+                    <div class="opt-name">Roboto</div>
+                </div>
+                <div class="option-card" data-font="4" onclick="selectFont(4)">
+                    <div class="opt-name" style="letter-spacing:1px">Bebas Neue</div>
+                </div>
+                <div class="option-card" data-font="5" onclick="selectFont(5)">
+                    <div class="opt-name">Default</div>
+                </div>
+            </div>
+
+            <div class="section-title">Karakter Canı</div>
+            <div class="option-grid" id="healthOptions">
+                <div class="option-card active" data-health="1" onclick="selectHealth(1)">
+                    <div class="opt-name">Yazı + Bar</div>
+                </div>
+                <div class="option-card" data-health="2" onclick="selectHealth(2)">
+                    <div class="opt-name">Sadece Bar</div>
+                </div>
+                <div class="option-card" data-health="3" onclick="selectHealth(3)">
+                    <div class="opt-name">Sadece Yazı</div>
+                </div>
+            </div>
+
+            <div class="section-title">Crosshair</div>
+            <div class="option-grid" id="crossOptions">
+                <div class="option-card" data-cross="0" onclick="selectCross(0)">
+                    <div class="opt-name">Kapalı</div>
+                </div>
+                <div class="option-card" data-cross="1" onclick="selectCross(1)">
+                    <div class="opt-name">+</div>
+                </div>
+                <div class="option-card" data-cross="2" onclick="selectCross(2)">
+                    <div class="opt-name">●</div>
+                </div>
+                <div class="option-card" data-cross="3" onclick="selectCross(3)">
+                    <div class="opt-name">○</div>
+                </div>
+            </div>
+
+            <div class="settings-actions">
+                <button class="menu-btn secondary" onclick="backToMain()">Geri</button>
+                <button class="menu-btn" onclick="saveAndClose()">Kaydet & Kapat</button>
+            </div>
+        </div>
+    </div>
+    <script src="http://mta/local/js/menu.js"></script>
+</body>
+</html>

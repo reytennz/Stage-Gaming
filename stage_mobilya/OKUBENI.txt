@@ -1,0 +1,61 @@
+RRP FURNITURE - STANDALONE SÜRÜM (export gerektirmez)
+========================================================
+
+YAPILAN DEĞİŞİKLİKLER
+----------------------
+1) MySQL bağlantısı artık dışarıdaki "sh_mysql" kaynağına bağlı DEĞİL.
+   s_furniture.lua dosyasının EN ÜSTÜNDE kendi bilgilerinizi girin:
+
+       local MYSQL_HOST = "localhost"
+       local MYSQL_PORT = "3306"
+       local MYSQL_USER = "root"
+       local MYSQL_PASS = ""
+       local MYSQL_DB   = "mta_server"
+
+   "furnitures" tablosu yoksa kaynak ilk başladığında otomatik oluşturulur.
+   "furnitures_texture" tablosunu da (duvar kağıdı/texture sistemi) MySQL'inizde
+   kendiniz oluşturmalısınız (id, interior, texture, url alanları).
+
+2) /mobilya komutu eklendi (c_shop.lua).
+   Oyuncu artık NPC'ye gitmeden sohbet kutusuna "/mobilya" yazarak
+   mobilya mağazasını açıp kapatabilir.
+
+3) Kaldırılan dış kaynak bağımlılıkları (export):
+   - sh_mysql  -> doğrudan dbConnect ile değiştirildi
+   - sh_global (hasMoney/takeMoney) -> MTA'nın kendi nakit sistemi
+     (getPlayerMoney/takePlayerMoney) kullanılıyor
+   - sh_pool (getServerSyntax)      -> düz metin önekleriyle değiştirildi
+   - sh_integration / sh_global (yetki & eşya kontrolleri, texture
+     değiştirme izinleri) -> "Admin" ACL grubuna bağlı basit bir
+     isFurnitureAdmin() kontrolüyle değiştirildi (newtexture/server.lua).
+     Dış mekan (interior/dimension = 0) herkese açık, iç mekanlarda
+     texture değiştirmek için ACL'de "Admin" grubunda olmak gerekiyor.
+
+4) Mobilya sahipliği (dbid):
+   Script, mobilyanın kime ait olduğunu oyuncunun "dbid" element datasından
+   okuyor. Eğer kendi login/hesap sisteminiz bu veriyi zaten dolduruyorsa
+   hiçbir şey yapmanıza gerek yok. Doldurmuyorsa, s_furniture.lua içine
+   eklenen onPlayerLogin olayı MTA hesap ID'sini otomatik "dbid" olarak
+   atar (standalone çalışması için).
+
+KURULUM
+-------
+1) Bu klasörü sunucunuzun "resources" (veya "mods/deathmatch/resources")
+   dizinine "rrp_furniture" adıyla atın.
+2) s_furniture.lua'nın en üstündeki MySQL bilgilerini kendi veritabanınıza
+   göre doldurun.
+3) MTA sunucunuzda "mysql" modülünün (dbConnect "mysql") etkin olduğundan
+   emin olun (çoğu güncel MTA sunucusunda varsayılan olarak vardır).
+4) mtaserver.conf dosyanıza <resource src="rrp_furniture" startup="1" /> ekleyin
+   ya da konsoldan: start rrp_furniture / refresh yazın.
+5) Oyunda "/mobilya" yazarak test edin.
+
+NOT
+---
+Bu script daha önce özel bir sunucu altyapısına (sh_global, sh_mysql,
+sh_pool, sh_integration kaynakları) bağlıydı. O kaynaklar kaldırıldı ve
+yerlerine MTA'nın kendi standart fonksiyonları (para sistemi, ACL yetki
+sistemi, doğrudan MySQL bağlantısı) kondu. Kendi sunucunuzda ayrı bir
+ekonomi/yetki sisteminiz varsa, ilgili kısımları (getPlayerMoney/
+takePlayerMoney ve isFurnitureAdmin) kendi sisteminize göre
+uyarlayabilirsiniz.

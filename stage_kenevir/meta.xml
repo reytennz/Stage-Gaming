@@ -1,0 +1,13 @@
+<meta>
+
+	<script src="sfile.lua" type="server"/>
+	<script src="cfile.lua" type="client" cache="false"/>
+	<script src="rectangle.lua" type="client" cache="false"/>
+
+	<file src="zemin.png" />
+	<file src="assets/leaf_green.png" />
+	<file src="assets/leaf_red.png" />
+	<file src="assets/glow_green.png" />
+	<file src="assets/glow_red.png" />
+	
+</meta>

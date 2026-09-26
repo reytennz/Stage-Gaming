@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage</title>
+    <link rel="stylesheet" href="http://mta/local/css/style.css">
+</head>
+<body>
+    <video id="bg-video" autoplay muted loop playsinline preload="auto">
+        <source src="http://mta/local/assets/video.mp4" type="video/mp4">
+    </video>
+
+    <div class="top-left">
+        <img src="http://mta/local/assets/logo.png" class="server-logo" alt="logo" onerror="this.style.display='none'">
+        <div class="server-name" id="serverName">Stage</div>
+        <div class="discord" id="discordText">discord.gg/stagegaming</div>
+    </div>
+
+    <div class="changelog">
+        <h3>Change Logs</h3>
+        <div class="log-item">
+            <span class="version">v1.2.0</span><span class="date">2024-07-28</span>
+            <p>Major update with new features</p>
+        </div>
+        <div class="log-item">
+            <span class="version">v1.1.5</span><span class="date">2024-07-25</span>
+            <p>Performance improvements</p>
+        </div>
+        <div class="log-item">
+            <span class="version">v1.1.0</span><span class="date">2024-07-20</span>
+            <p>Bug fixes and optimizations</p>
+        </div>
+        <div class="log-item">
+            <span class="version">v1.0.2</span><span class="date">2024-07-18</span>
+            <p>UI enhancements</p>
+        </div>
+        <div class="log-item">
+            <span class="version">v1.0.0</span><span class="date">2024-07-15</span>
+            <p>Initial release</p>
+        </div>
+    </div>
+
+    <div class="login-panel">
+        <h2>Stage</h2>
+        <input type="text" id="username" placeholder="Kullanıcı Adı" maxlength="24">
+        <input type="password" id="password" placeholder="Şifre" maxlength="32">
+        <label class="remember-row">
+            <input type="checkbox" id="rememberMe">
+            <span>Beni hatırla</span>
+        </label>
+        <div class="buttons">
+            <button type="button" id="btnLogin">Giriş Yap</button>
+            <button type="button" id="btnRegister">Kayıt Ol</button>
+        </div>
+        <div id="errorMsg"></div>
+    </div>
+
+    <div class="music-player">
+        <img src="http://mta/local/assets/music_cover.png" class="cover" alt="" onerror="this.style.display='none'">
+        <div class="track-info">
+            <div class="title" id="trackTitle">Dark Thoughts</div>
+            <div class="artist" id="trackArtist">Lil Tecca</div>
+        </div>
+        <div class="controls">
+            <button type="button" id="prevBtn">‹</button>
+            <button type="button" id="playBtn">⏸</button>
+            <button type="button" id="nextBtn">›</button>
+            <input type="range" id="volume" min="0" max="1" step="0.01" value="0.4">
+        </div>
+    </div>
+
+    <div class="bottom-right">
+        <img src="http://mta/local/assets/sf_logo.png" class="sf-logo" alt="SF" onerror="this.style.display='none'">
+    </div>
+
+    <div class="loading-bar">
+        <div class="progress" id="progress"></div>
+        <span id="loadingText">Loading assets... 0%</span>
+    </div>
+
+    <audio id="bg-music" loop preload="auto">
+        <source src="http://mta/local/assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="http://mta/local/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+STAGE LOADING + RADAR (F11 HARITA) BIRLESIK SURUM
+==================================================
+
+NE EKLENDI
+- Sol altta mini harita (kendi radarimiz, GTA radari kapali)
+- F11 ile buyuk harita (zoom: mouse tekerlegi, sifirlama: Space)
+- Blip/isaretci sistemi, GPS yol tarifi ve sesleri
+- Radar sadece giris yaptiktan sonra cizilir; karakter seciminde/loading'de gorunmez
+
+KURULUM
+1) Sunucudaki eski "radar" kaynagi varsa kaldirin (stop radar + klasoru silin).
+   Ayni harita iki kere cizilirse sebebi bu olur.
+2) Bu klasoru resources icindeki stage_loading klasorunun uzerine yazin.
+3) Sunucu konsolunda:  refresh   sonra   restart stage_loading
+
+AYARLAR
+radar/radar_config.lua dosyasindan:
+- minimap = false      -> mini haritayi kapatir (F11 haritasi calismaya devam eder)
+- minimapX/Y/W/H       -> mini harita konumu ve boyutu
+- bigmapCursor = false -> F11 haritasinda fare imlecini gostermez
+
+NOTLAR
+- Radarin eski widget duzenleyicisi (client.lua) ve savepositions.lua alinmadi;
+  stage HUD duzenleyicisi ile cakisiyordu.
+- Dis kaynak bagimliliklari (arp_radar, integration, drawtag) kaldirildi.
+
+
+F11 BLIP PANELI VE KONUM (V3)
+- F11 haritasinin saginda blip kategori secimi vardir.
+- Bir kategoriye tiklayinca yalnizca o kategorinin sabit blipleri gorunur.
+- Tum Blipler secenegi hepsini tekrar acar.
+- Haritanin altinda her zaman oyuncunun mevcut konumu (ornek: Kadikoy) yazar.

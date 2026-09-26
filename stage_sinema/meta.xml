@@ -1,0 +1,13 @@
+<meta>
+    <info author="HUNGRY*-*" version="2.0.0" name="Cinema - Video &amp; Live Player" type="script"></info>
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" />
+    
+    <file src="tela_padrao.png" />
+	
+	<map src="Map.map" dimension="0"></map>
+
+    <script src="mapEditorScriptingExtension_s.lua" type="server"></script>
+    <script src="mapEditorScriptingExtension_c.lua" type="client" validate="false"></script>
+	
+</meta>

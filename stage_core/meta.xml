@@ -1,0 +1,47 @@
+<meta>
+    <info author="Stage" name="stage_core" version="1.0.0" type="script"
+          description="Stage Gaming - ortak para, oyuncu, admin, notify, utility" />
+    <min_mta_version server="1.5.9" client="1.5.9" />
+
+    <script src="shared/config.lua" type="shared" cache="false" />
+    <script src="shared/utils.lua" type="shared" cache="false" />
+
+    <script src="server/database.lua" type="server" />
+    <script src="server/money.lua" type="server" />
+    <script src="server/player.lua" type="server" />
+    <script src="server/admin.lua" type="server" />
+    <script src="server/notify.lua" type="server" />
+    <script src="server/main.lua" type="server" />
+
+    <script src="client/notify.lua" type="client" cache="false" />
+    <file src="html/notify.html" />
+
+    <!-- Para -->
+    <export function="GetMoney" type="server" />
+    <export function="HasMoney" type="server" />
+    <export function="AddMoney" type="server" />
+    <export function="RemoveMoney" type="server" />
+    <export function="SetMoney" type="server" />
+
+    <!-- Ortak SQL -->
+    <export function="CoreDBQuery" type="server" />
+    <export function="CoreDBExec" type="server" />
+    <export function="CoreDBIsMySQL" type="server" />
+
+    <!-- Oyuncu / Account -->
+    <export function="GetAccountName" type="server" />
+    <export function="IsLoggedIn" type="server" />
+
+    <!-- Admin -->
+    <export function="IsAdmin" type="server" />
+    <export function="IsACLAdmin" type="server" />
+
+    <!-- Bildirim -->
+    <export function="Notify" type="server" />
+    <export function="Notify" type="client" />
+
+    <!-- Utility -->
+    <export function="formatMoney" type="shared" />
+    <export function="CheckRateLimit" type="server" />
+    <export function="clamp" type="shared" />
+</meta>

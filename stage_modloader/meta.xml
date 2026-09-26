@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meta>
+    <info author="MTA Mod Loader" type="script" description="Otomatik Mod Yükleyici" />
+    <script src="Client.lua" type="client" />
+
+    <!-- ARAÇ MODLARI -->
+    <file src="Mods/Araba/400.dff" download="false" />
+    <file src="Mods/Araba/400.txd" download="false" />
+    <file src="Mods/Araba/401.dff" download="false" />
+    <file src="Mods/Araba/401.txd" download="false" />
+    <file src="Mods/Araba/404.dff" download="false" />
+    <file src="Mods/Araba/404.txd" download="false" />
+    <file src="Mods/Araba/405.dff" download="false" />
+    <file src="Mods/Araba/405.txd" download="false" />
+    <file src="Mods/Araba/409.dff" download="false" />
+    <file src="Mods/Araba/409.txd" download="false" />
+    <file src="Mods/Araba/419.dff" download="false" />
+    <file src="Mods/Araba/419.txd" download="false" />
+    <file src="Mods/Araba/420.dff" download="false" />
+    <file src="Mods/Araba/420.txd" download="false" />
+    <file src="Mods/Araba/421.dff" download="false" />
+    <file src="Mods/Araba/421.txd" download="false" />
+    <file src="Mods/Araba/426.dff" download="false" />
+    <file src="Mods/Araba/426.txd" download="false" />
+    <file src="Mods/Araba/438.dff" download="false" />
+    <file src="Mods/Araba/438.txd" download="false" />
+    <file src="Mods/Araba/442.dff" download="false" />
+    <file src="Mods/Araba/442.txd" download="false" />
+    <file src="Mods/Araba/454.dff" download="false" />
+    <file src="Mods/Araba/454.txd" download="false" />
+    <file src="Mods/Araba/455.dff" download="false" />
+    <file src="Mods/Araba/455.txd" download="false" />
+    <file src="Mods/Araba/456.dff" download="false" />
+    <file src="Mods/Araba/456.txd" download="false" />
+    <file src="Mods/Araba/458.dff" download="false" />
+    <file src="Mods/Araba/458.txd" download="false" />
+    <file src="Mods/Araba/467.dff" download="false" />
+    <file src="Mods/Araba/467.txd" download="false" />
+    <file src="Mods/Araba/470.dff" download="false" />
+    <file src="Mods/Araba/470.txd" download="false" />
+    <file src="Mods/Araba/479.dff" download="false" />
+    <file src="Mods/Araba/479.txd" download="false" />
+    <file src="Mods/Araba/491.dff" download="false" />
+    <file src="Mods/Araba/491.txd" download="false" />
+    <file src="Mods/Araba/492.dff" download="false" />
+    <file src="Mods/Araba/492.txd" download="false" />
+    <file src="Mods/Araba/507.dff" download="false" />
+    <file src="Mods/Araba/507.txd" download="false" />
+    <file src="Mods/Araba/529.dff" download="false" />
+    <file src="Mods/Araba/529.txd" download="false" />
+    <file src="Mods/Araba/540.dff" download="false" />
+    <file src="Mods/Araba/540.txd" download="false" />
+    <file src="Mods/Araba/542.dff" download="false" />
+    <file src="Mods/Araba/542.txd" download="false" />
+    <file src="Mods/Araba/556.dff" download="false" />
+    <file src="Mods/Araba/556.txd" download="false" />
+    <file src="Mods/Araba/557.dff" download="false" />
+    <file src="Mods/Araba/557.txd" download="false" />
+    <file src="Mods/Araba/550.dff" download="false" />
+    <file src="Mods/Araba/550.txd" download="false" />
+    <file src="Mods/Araba/551.dff" download="false" />
+    <file src="Mods/Araba/551.txd" download="false" />
+
+    <!-- TAM EKRAN ARKAPLAN SLAYTI GÖRSELLERİ -->
+    <file src="Loader/bg1.png" download="true" />
+
+</meta>

@@ -1,0 +1,25 @@
+<meta>
+    <info author="Grok" name="Benzinlik İşletme Sistemi" version="1.0.0" type="script" description="Tam kapsamlı MTA:SA Benzinlik İşletme Sistemi - MySQL destekli, dxDraw UI, server-side güvenli" />
+    <min_mta_version server="1.5.9" client="1.5.9" />
+
+    <script src="config.lua" type="shared" cache="false" />
+    <script src="shared/utils.lua" type="shared" cache="false" />
+
+    <script src="server/database.lua" type="server" />
+    <script src="server/security.lua" type="server" />
+    <script src="server/stations.lua" type="server" />
+    <script src="server/economy.lua" type="server" />
+    <script src="server/products.lua" type="server" />
+    <script src="server/ads.lua" type="server" />
+    <script src="server/levels.lua" type="server" />
+    <script src="server/main.lua" type="server" />
+
+    <script src="client/main.lua" type="client" cache="false" />
+    <script src="client/ui.lua" type="client" cache="false" />
+    <script src="client/markers.lua" type="client" cache="false" />
+    <script src="client/fuel.lua" type="client" cache="false" />
+    <script src="client/browser_ui.lua" type="client" cache="false" />
+    <file src="html/app.html" />
+
+    <file src="sql/schema.sql" />
+</meta>

@@ -1,0 +1,28 @@
+Config = {
+    command = "telefon",
+    key = "F4",
+    width = 390,
+    height = 760,
+    defaultScale = 1.0,
+    minScale = 0.72,
+    maxScale = 1.15,
+    accent = {255, 204, 0},
+    background = {16, 16, 18},
+    animation = true,
+    notificationTime = 4000,
+    maxMessageLength = 500,
+    maxTweetLength = 280,
+    maxPostCaption = 500,
+    maxNoteLength = 2000,
+    maxGallery = 40,
+    maxCallInput = 16,
+    -- Optional MySQL. Keep enabled = false unless the server has a working dbConnect MySQL driver.
+    mysql = {
+        enabled = false,
+        host = "127.0.0.1",
+        port = 3306,
+        user = "root",
+        pass = "",
+        db = "stage_phone",
+    },
+}

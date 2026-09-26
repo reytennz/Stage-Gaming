@@ -1,0 +1,20 @@
+<meta>
+    <info author="Stage" name="Economy System" version="2.0.0" type="script" />
+    <script src="server.lua" type="server" />
+
+    <export function="GetCash" type="server" />
+    <export function="SetCash" type="server" />
+    <export function="AddCash" type="server" />
+    <export function="RemoveCash" type="server" />
+
+    <export function="GetBank" type="server" />
+    <export function="SetBank" type="server" />
+    <export function="AddBank" type="server" />
+    <export function="RemoveBank" type="server" />
+
+    <!-- Geriye donuk uyumluluk aliaslari -->
+    <export function="giveMoney" type="server" />
+    <export function="takeMoney" type="server" />
+    <export function="getMoney" type="server" />
+    <export function="setMoney" type="server" />
+</meta>

@@ -1,0 +1,20 @@
+<map edf:definitions="editor_main">
+
+    <object id="object (drvin_screen) (1)" breakable="false" interior="0" alpha="255" dimension="0" model="16000" scale="1" doublesided="false" collisions="true" posX="2317.3999" posY="-1542.7" posZ="23.9" rotX="0" rotY="0" rotZ="-1"></object>
+    <removeWorldObject id="removeWorldObject (bskball_lax) (3)" radius="4.619822" interior="-1" model="946" lodModel="0" posX="2316.9375" posY="-1541.6094" posZ="26.5" rotX="0" rotY="0" rotZ="0" scale="1"></removeWorldObject>
+    <removeWorldObject id="removeWorldObject (lamppost1) (2)" radius="6.0116315" interior="-1" model="1297" lodModel="0" posX="2305.5859" posY="-1544.1797" posZ="27.21875" rotX="0" rotY="0" rotZ="0" scale="1"></removeWorldObject>
+    <removeWorldObject id="removeWorldObject (lamppost1) (3)" radius="6.0116315" interior="-1" model="1297" lodModel="0" posX="2327.4063" posY="-1544.1797" posZ="27.21875" rotX="0" rotY="0" rotZ="0" scale="1"></removeWorldObject>
+    <removeWorldObject id="removeWorldObject (lamppost1) (4)" radius="6.0116315" interior="0" model="1297" lodModel="0" alpha="255" posX="2327.4063" posY="-1544.1797" posZ="27.21875" rotX="0" rotY="0" rotZ="0" scale="1"></removeWorldObject>
+    <object id="object (bleacher_SFSx) (1)" breakable="false" interior="0" alpha="255" dimension="0" model="3819" scale="1" doublesided="false" collisions="true" posX="2322.2" posY="-1525.1" posZ="25.3" rotX="0" rotY="0" rotZ="90"></object>
+    <object id="object (bleacher_SFSx) (2)" breakable="false" interior="0" alpha="255" dimension="0" model="3819" scale="1" doublesided="false" collisions="true" posX="2311.3" posY="-1525.1" posZ="25.3" rotX="0" rotY="0" rotZ="90"></object>
+    <object id="object (libstreetfar) (12)" breakable="false" interior="0" alpha="255" dimension="0" model="3923" scale="2.7" doublesided="false" collisions="true" posX="2318.6001" posY="-1532.9" posZ="23.6" rotX="0" rotY="0" rotZ="176"></object>
+    <object id="object (MED_SPEAKER_4) (1)" breakable="false" interior="0" alpha="255" dimension="0" model="2232" scale="2" doublesided="false" collisions="true" posX="2327.3" posY="-1543.1" posZ="33.2" rotX="12.742" rotY="0.748" rotZ="179.453"></object>
+    <object id="object (MED_SPEAKER_4) (2)" breakable="false" interior="0" alpha="255" dimension="0" model="2232" scale="2" doublesided="false" collisions="true" posX="2307.5" posY="-1542.7" posZ="33.2" rotX="12.739" rotY="0.747" rotZ="179.451"></object>
+    <object id="object (MED_SPEAKER_4) (3)" breakable="false" interior="0" alpha="255" dimension="0" model="2232" scale="2" doublesided="false" collisions="true" posX="2327.3" posY="-1543.2" posZ="32" rotX="0" rotY="0" rotZ="179"></object>
+    <object id="object (MED_SPEAKER_4) (4)" breakable="false" interior="0" alpha="255" dimension="0" model="2232" scale="2" doublesided="false" collisions="true" posX="2307.5" posY="-1542.7" posZ="32" rotX="0" rotY="0" rotZ="178.995"></object>
+    <object id="object (lamppost1) (1)" breakable="true" interior="0" alpha="255" dimension="0" model="1297" scale="1" doublesided="false" collisions="true" posX="2310.3" posY="-1542.1" posZ="32" rotX="0" rotY="0" rotZ="-96.505"></object>
+    <object id="object (lamppost1) (2)" breakable="true" interior="0" alpha="255" dimension="0" model="1297" scale="1" doublesided="false" collisions="true" posX="2313.8999" posY="-1542.3" posZ="32" rotX="0" rotY="0" rotZ="-96.509"></object>
+    <object id="object (lamppost1) (3)" breakable="true" interior="0" alpha="255" dimension="0" model="1297" scale="1" doublesided="false" collisions="true" posX="2317.5" posY="-1542.3" posZ="32" rotX="0" rotY="0" rotZ="-96.509"></object>
+    <object id="object (lamppost1) (4)" breakable="true" interior="0" alpha="255" dimension="0" model="1297" scale="1" doublesided="false" collisions="true" posX="2321" posY="-1542.3" posZ="32" rotX="0" rotY="0" rotZ="-96.509"></object>
+    <object id="object (lamppost1) (5)" breakable="true" interior="0" alpha="255" dimension="0" model="1297" scale="1" doublesided="false" collisions="true" posX="2324.6001" posY="-1542.4" posZ="32" rotX="0" rotY="0" rotZ="-96.509"></object>
+</map>
