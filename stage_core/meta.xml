@@ -9,6 +9,8 @@
     <script src="server/database.lua" type="server" />
     <script src="server/money.lua" type="server" />
     <script src="server/player.lua" type="server" />
+    <script src="server/identity.lua" type="server" />
+    <script src="client/identity.lua" type="client" cache="false" />
     <script src="server/admin.lua" type="server" />
     <script src="server/notify.lua" type="server" />
     <script src="server/main.lua" type="server" />
@@ -31,6 +33,24 @@
     <!-- Oyuncu / Account -->
     <export function="GetAccountName" type="server" />
     <export function="IsLoggedIn" type="server" />
+
+    <!-- Karakter / Player API -->
+    <export function="GetPlayerID" type="server" />
+    <export function="GetCharacterID" type="server" />
+    <export function="GetCharacterName" type="server" />
+    <export function="GetCharacterData" type="server" />
+    <export function="IsCharacterLoaded" type="server" />
+    <export function="GetPlayerTag" type="server" />
+    <export function="SetPlayerTag" type="server" />
+    <export function="ClearPlayerTag" type="server" />
+
+    <!-- Interior / Dimension / World -->
+    <export function="GetPlayerInterior" type="server" />
+    <export function="SetPlayerInterior" type="server" />
+    <export function="GetPlayerDimension" type="server" />
+    <export function="SetPlayerDimension" type="server" />
+    <export function="SetPlayerWorld" type="server" />
+    <export function="GetPlayerWorld" type="server" />
 
     <!-- Admin -->
     <export function="IsAdmin" type="server" />
